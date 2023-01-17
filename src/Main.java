@@ -3,5 +3,6 @@ public class Main {
         Receptionist recept = new Receptionist("mika", 101, "sentul");
         recept.view();
         System.out.println("hellooo");
+        System.out.println("Joelll");
     }
 }
