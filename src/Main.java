@@ -4,5 +4,7 @@ public class Main {
         recept.view();
         System.out.println("hellooo");
         System.out.println("Joelll");
+        int ma = 4;
+        int m = 3;
     }
 }
