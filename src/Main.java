@@ -5,5 +5,6 @@ public class Main {
         System.out.println("hellooo");
         System.out.println("Joelll");
         int ma = 4;
+        int m = 3;
     }
 }
