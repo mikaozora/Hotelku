@@ -6,5 +6,6 @@ public class Main {
         System.out.println("Joelll");
         int ma = 4;
         int m = 3;
+        System.out.println(ma+m);
     }
 }
