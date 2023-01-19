@@ -14,7 +14,7 @@ public class Guest {
     Guest(String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {
         this.setGuestName(guestName);
         this.setGuestAddress(guestAddress);
-        this.guestId = "" + (long) (Math.random() * 2000000000L);
+        this.guestId = "" + ((long)(Math.random() * (9999999999L - 1000000000L + 1)) + 1000000000L);
         this.setGuestPhone(guestPhone);
         this.setGuestRoom(guestRoom);
         this.setGuestAge(guestAge);
@@ -79,7 +79,7 @@ public class Guest {
 
     List<Guest> guestsArr = new ArrayList<>();
 
-    public void viewAll(String guestId, String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {
+    public void viewAll() {
         AtomicInteger i = new AtomicInteger(1);
         guestsArr.forEach(cetak -> {
 

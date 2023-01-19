@@ -11,7 +11,7 @@ public class Employee {
 
     public Employee(String empName, String empAddress, String empPhone, String empRole) {
         this.setempName(empName);
-        this.empId = "" + (long) (Math.random() * 2000000000L);
+        this.empId = "" + ((long)(Math.random() * (9999999999L - 1000000000L + 1)) + 1000000000L);
         this.setempAddress(empAddress);
         this.setempPhone(empPhone);
         this.setempRole(empRole);

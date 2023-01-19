@@ -1,5 +1,3 @@
-import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -81,7 +79,6 @@ public class Main {
         do {
 
             System.out.println("1. View employee");
-
             System.out.println("2. Add employee");
             System.out.println("3. Update employee");
             System.out.println("4. Delete employee");
@@ -92,7 +89,6 @@ public class Main {
             switch (choose){
                 case 1:
                     employee.viewAll();
-
                     break;
                 case 2:
                     System.out.println("====Add Employee======");
@@ -184,6 +180,10 @@ public class Main {
         }while(choose != 5);
     }
 
+    static void bookingMenu(){
+
+    }
+
     static void homeAdmin() {
 
         int choose;
@@ -219,6 +219,25 @@ public class Main {
 
     static void homeRec(){
 
+        int choose;
+        do {
+            System.out.println("======Hotelku Receptionist=======");
+            System.out.println("1. Add Booking");
+            System.out.println("2. Check Room");
+            System.out.println("3. Logout");
+            System.out.print(">> ");
+            choose = input.nextInt();
+            input.nextLine();
+            switch (choose) {
+                case 1:
+                    bookingMenu();
+                    break;
+                case 2:
+                    break;
+            }
+        } while (choose != 3);
+        formLogin();
+
     }
 
     static int checkLogin(){
@@ -246,7 +265,6 @@ public class Main {
         receptionist.init();
         guest.init();
         formLogin();
-
 
     }
 }
