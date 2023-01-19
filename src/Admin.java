@@ -24,7 +24,6 @@ public class Admin {
     public void viewAll(){
         AtomicInteger i = new AtomicInteger(1);
         adminList.forEach(admin -> {
-
             System.out.print(i + ". ");
             System.out.println("Id: " + admin.getAdminId());
             System.out.println("Name: " + admin.getAdminName());
@@ -40,11 +39,12 @@ public class Admin {
     }
 
     void updateAdmin(int index, String username, String password, String adminName, int adminPhoneNum, String adminAddress){
-        adminList.get(index-1).setUsername(username);
-        adminList.get(index-1).setPassword(password);
-        adminList.get(index-1).setAdminName(adminName);
-        adminList.get(index-1).setAdminPhoneNum(adminPhoneNum);
-        adminList.get(index-1).setAdminAddress(adminAddress);
+        System.out.println(index);
+        adminList.get(index).setUsername(username);
+        adminList.get(index).setPassword(password);
+        adminList.get(index).setAdminName(adminName);
+        adminList.get(index).setAdminPhoneNum(adminPhoneNum);
+        adminList.get(index).setAdminAddress(adminAddress);
     }
     void deleteAdmin(int index){
         adminList.remove(index-1);
@@ -54,13 +54,13 @@ public class Admin {
         adminList.add(new Admin("admin", "admin", "admin1", 12345, "sentul"));
     }
 
-    boolean checkAdmin(String username, String password){
+    int checkAdmin(String username, String password){
         for(Admin admin : adminList){
             if(admin.getUsername().equals(username) && admin.getPassword().equals(password)){
-                return true;
+                return adminList.indexOf(admin);
             }
         }
-        return false;
+        return -1;
     }
     public String getUsername() {
         return username;

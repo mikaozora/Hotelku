@@ -7,6 +7,7 @@ public class Main {
     static Receptionist receptionist = new Receptionist(null,null,null,null,null,0);
     static Guest guest = new Guest(null,null,null,0,0,null);
     static Room room = new Room(0, null, 0, false);
+    static int indexLogin = -1;
     static void adminMenu(){
         int choose, phoneNum, index;
         String username, password, address, name;
@@ -14,13 +15,13 @@ public class Main {
         do {
             System.out.println("1. View admin");
             System.out.println("2. Add admin");
-            System.out.println("3. Update admin");
+            System.out.println("3. Change data");
             System.out.println("4. Delete admin");
             System.out.println("5. Exit");
             System.out.print(">> ");
             choose = input.nextInt();
             input.nextLine();
-            switch (choose){
+            switch (choose) {
                 case 1:
                     admin.viewAll();
                     break;
@@ -40,10 +41,6 @@ public class Main {
                     admin.addAdmin(username, password, name, phoneNum, address);
                     break;
                 case 3:
-                    admin.viewAll();
-                    System.out.print("Choose data you want to change: ");
-                    index = input.nextInt();
-                    input.nextLine();
                     System.out.println("====Change Data Admin======");
                     System.out.print("Username: ");
                     username = input.nextLine();
@@ -56,25 +53,33 @@ public class Main {
                     input.nextLine();
                     System.out.print("Address: ");
                     address = input.nextLine();
-                    admin.updateAdmin(index, username, password, name, phoneNum, address);
+                    admin.updateAdmin(indexLogin, username, password, name, phoneNum, address);
                     break;
                 case 4:
                     admin.viewAll();
                     System.out.print("Choose data you want to delete: ");
                     index = input.nextInt();
                     input.nextLine();
-                    admin.deleteAdmin(index);
-                    System.out.println("Successfully delete admin");
+                    if (index - 1 == indexLogin) {
+                        admin.deleteAdmin(index);
+                        System.out.println("Successfully delete admin");
+                        indexLogin = -1;
+                        formLogin();
+
+                    } else {
+                        admin.deleteAdmin(index);
+                        System.out.println("Successfully delete admin");
+                    }
                     break;
                 case 5:
                     break;
                 default:
                     break;
             }
-        }while(choose != 5);
+        } while (choose != 5);
     }
 
-    static void employeeMenu(){
+    static void employeeMenu() {
         String name, phoneNum, address, role;
         int choose, index;
         do {
@@ -87,7 +92,7 @@ public class Main {
             System.out.print(">> ");
             choose = input.nextInt();
             input.nextLine();
-            switch (choose){
+            switch (choose) {
                 case 1:
                     employee.viewAll();
                     break;
@@ -150,6 +155,7 @@ public class Main {
             }
         }while(choose != 5);
     }
+
     static void receptionistMenu() {
         int choose, index,age;
         String phoneNum, username, password, address, name;
@@ -202,7 +208,7 @@ public class Main {
                     address = input.nextLine();
                     System.out.print("Age: ");
                     age = input.nextInt();
-                    receptionist.updateReceptionist(index, username, password, name, phoneNum, address,age);
+                    receptionist.updateReceptionist(index, username, password, name, phoneNum, address, age);
                     break;
                 case 4:
                     receptionist.viewAll();
@@ -284,7 +290,7 @@ public class Main {
                 default:
                     break;
             }
-        }while(choose != 5);
+        } while (choose != 5);
     }
 
     static void bookingMenu(){
@@ -295,34 +301,38 @@ public class Main {
     static void homeAdmin() {
 
         int choose;
-        do {
-            System.out.println("======Hotelku=======");
-            System.out.println("1. Receptionist");
-            System.out.println("2. Employee");
-            System.out.println("3. Rooms");
-            System.out.println("4. Admin");
-            System.out.println("5. Logout");
-            System.out.print(">> ");
-            choose = input.nextInt();
-            input.nextLine();
-            switch (choose){
-                case 1:
-                    receptionistMenu();
-                    break;
-                case 2:
-                    employeeMenu();
-                    break;
-                case 3:
-                    roomMenu();
-                    break;
-                case 4:
-                    adminMenu();
-                    break;
-                default:
-                    break;
-            }
-        } while (choose != 5);
-        formLogin();
+        if (indexLogin != -1) {
+            do {
+                System.out.println("======Hotelku=======");
+                System.out.println("1. Receptionist");
+                System.out.println("2. Employee");
+                System.out.println("3. Rooms");
+                System.out.println("4. Admin");
+                System.out.println("5. Logout");
+                System.out.print(">> ");
+                choose = input.nextInt();
+                input.nextLine();
+                switch (choose) {
+                    case 1:
+                        receptionistMenu();
+                        break;
+                    case 2:
+                        employeeMenu();
+                        break;
+                    case 3:
+                        roomMenu();
+                        break;
+                    case 4:
+                        adminMenu();
+                        break;
+                    default:
+                        break;
+                }
+            } while (choose != 5);
+        } else {
+            formLogin();
+        }
+
 
     }
 
@@ -350,12 +360,13 @@ public class Main {
 
     }
 
-    static int checkLogin(String username, String password){
-        if(admin.checkAdmin(username, password)){
+    static int checkLogin(String username, String password) {
+        if (admin.checkAdmin(username, password) != -1) {
+            indexLogin = admin.checkAdmin(username, password);
             return 1;
-        }else if(receptionist.checkRec(username, password)){
+        } else if (receptionist.checkRec(username, password)) {
             return 2;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -371,8 +382,12 @@ public class Main {
             homeAdmin();
         }else if(res == 2){
             homeRec();
-        }else{
-            System.out.println("Wrong username or password");
+        } else {
+            try {
+                throw new AccessDeniedException("Wrong username or password");
+            } catch (AccessDeniedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
@@ -383,8 +398,6 @@ public class Main {
         receptionist.init();
         guest.init();
         formLogin();
-
-
 
     }
 }
