@@ -1,13 +1,14 @@
-import java.nio.file.AccessDeniedException;
 import java.util.Scanner;
 
 public class Main {
     static Scanner input = new Scanner(System.in);
     static Admin admin = new Admin(null, null, null, 0, null);
-    static Employee employee = new Employee(null,null,null,null);
-    static Receptionist receptionist = new Receptionist(null,null,null,null,null,0);
-    static Guest guest = new Guest(null,null,null,0,0,null);
+    static Employee employee = new Employee(null, null, null, null);
+    static Receptionist receptionist = new Receptionist(null, null, null, null, null, 0);
+    static Guest guest = new Guest(null, null, null, 0, 0, null);
     static Room room = new Room(0, null, 0, false);
+    static Booking book = new Booking(null,null,null,null, null);
+
     static int indexLogin = -1;
 
     static void addAdmin(){
@@ -347,9 +348,45 @@ public class Main {
         } while (choose != 5);
     }
 
-    static void bookingMenu(){
+
+    static void bookingMenu() {
         room.viewAvailableRoom();
-        System.out.println();
+
+        String name, address, phone, gender;
+        int roomNumber, Age;
+
+        String type,start,end,desc;
+
+        System.out.println("====Add Guest======");
+        System.out.print("Guest Name : ");
+        name = input.nextLine();
+        System.out.print("Guest Address : ");
+        address = input.nextLine();
+        System.out.print("Guest Phone : ");
+        phone = input.nextLine();
+        System.out.print("Guest Room Number : ");
+        roomNumber = input.nextInt();
+        System.out.print("Guest Age : ");
+        Age = input.nextInt();
+        input.nextLine();
+        System.out.print("Guest Gender : ");
+        gender = input.nextLine();
+        guest.addGuest(name, address, phone, roomNumber, Age, gender);
+        System.out.println(guest.indexGuest());
+        System.out.println("====Add Booking======");
+        System.out.print("Boking Type : ");
+        type = input.nextLine();
+        System.out.print("Start Date (dd/mm/yy) : ");
+        start = input.nextLine();
+        System.out.print("End Date (dd/mm/yy) : ");
+        end = input.nextLine();
+        System.out.print("Booking Description : ");
+        desc = input.nextLine();
+        book.checkIn(type,start,end,desc,guest.indexGuest());
+
+
+
+
     }
 
     static void homeAdmin() {
@@ -390,14 +427,16 @@ public class Main {
 
     }
 
-    static void homeRec(){
+    static void homeRec() {
 
         int choose;
         do {
             System.out.println("======Hotelku Receptionist=======");
             System.out.println("1. Add Booking");
             System.out.println("2. Check Room");
-            System.out.println("3. Logout");
+            System.out.println("3. Check Booking");
+            System.out.println("4. Check Guest");
+            System.out.println("5. Logout");
             System.out.print(">> ");
             choose = input.nextInt();
             input.nextLine();
@@ -408,8 +447,14 @@ public class Main {
                 case 2:
                     room.viewRoom();
                     break;
+                case 3:
+                    book.viewBook();
+                    break;
+                case 4:
+                    guest.viewAll();
+                    break;
             }
-        } while (choose != 3);
+        } while (choose != 5);
         formLogin();
 
     }
@@ -437,14 +482,11 @@ public class Main {
         }else if(res == 2){
             homeRec();
         } else {
-            try {
-                throw new AccessDeniedException("Wrong username or password");
-            } catch (AccessDeniedException e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println("wrong username or password");
         }
 
     }
+
     public static void main(String[] args) {
         room.roomInit();
         admin.initAdmin();
@@ -452,6 +494,8 @@ public class Main {
         receptionist.init();
         guest.init();
         formLogin();
+
+
 
     }
 }

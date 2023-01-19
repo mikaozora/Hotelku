@@ -110,9 +110,22 @@ public class Guest {
         guestsArr.get(index - 1).setGuestGender(guestGender);
     }
 
+    public String indexGuest(){
+//        System.out.println(guestId);
+//        for(Guest guest : guestsArr){
+//            if(guest.getGuestId().equals(guestId)){
+//                return guestsArr.indexOf(guest);
+//            }
+//        }
+//        return -1;
+        int index = guestsArr.size()-1;
+        return guestsArr.get(index).getGuestId();
+    }
+
     public void deleteGuest(int index) {
         guestsArr.remove(index - 1);
     }
+
 
     public void init() {
         addGuest("abdhy","lampung", "4098408",22,23,"Laki");
