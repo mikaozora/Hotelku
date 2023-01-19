@@ -1,14 +1,17 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Booking {
     String bookId;
     String bookType;
-    Date startDate;
-    Date endDate;
+    String startDate;
+    String endDate;
     String bookDesc;
     String guestId;
+
+    static Guest idGuest = new Guest(null,null,null,0,0,null);
 
     public String getBookId() {
         return bookId;
@@ -26,19 +29,19 @@ public class Booking {
         this.bookType = bookType;
     }
 
-    public Date getStartDate() {
+    public String  getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -55,10 +58,11 @@ public class Booking {
     }
 
     public void setGuestId(String guestId) {
+
         this.guestId = guestId;
     }
 
-    Booking(String bookType, Date startDate, Date endDate, String bookDesc, String guestId){
+    Booking(String bookType, String startDate, String endDate, String bookDesc, String guestId){
         this.bookId = ""+(long)(Math.random() * 20000000000L);
         this.setBookDesc(bookDesc);
         this.setGuestId(guestId);
@@ -69,13 +73,22 @@ public class Booking {
 
     List<Booking> bookList = new ArrayList<>();
 
-    void checkIn(String bookType, Date startDate, Date endDate, String bookDesc, String guestId){
+    void checkIn(String bookType, String startDate, String endDate, String bookDesc, String guestId){
         bookList.add(new Booking(bookType, startDate, endDate, bookDesc, guestId));
     }
 
-    void viewBook(){
-        bookList.forEach(rooms -> {
-            System.out.println("" + getStartDate() + " - " + getEndDate() + ", Booking ID: " + getBookId() + ", Booking Type: " + getBookType() + ", Guest's ID: " + getGuestId() + ", Booking Description: " + getBookDesc());
+    public void viewBook(){
+        AtomicInteger i = new AtomicInteger(1);
+        bookList.forEach(cetak -> {
+
+            System.out.print(i + ". ");
+            System.out.println("Booking Id : " + cetak.getBookId());
+            System.out.println("Booking Type : " + cetak.getBookType());
+            System.out.println("Booking Start Date : " + cetak.getStartDate());
+            System.out.println("Booking End Date : " + cetak.getEndDate());
+            System.out.println("Booking Description : " + cetak.getBookDesc());
+            System.out.println("Guest Id : " + cetak.getGuestId());
+            i.getAndIncrement();
         });
     }
 
@@ -84,7 +97,7 @@ public class Booking {
         System.out.println("Booking has been removed");
     }
 
-    void updateBook(int num, String bookType, Date startDate, Date endDate, String bookDesc, String guestId){
+    void updateBook(int num, String bookType, String startDate, String endDate, String bookDesc, String guestId){
         bookList.get(num-1).bookType = bookType;
         bookList.get(num-1).bookDesc = bookDesc;
         bookList.get(num-1).guestId = guestId;
