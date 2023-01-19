@@ -6,6 +6,7 @@ public class Main {
     static Employee employee = new Employee(null,null,null,null);
     static Receptionist receptionist = new Receptionist(null,null,null,null,null,0);
     static Guest guest = new Guest(null,null,null,0,0,null);
+    static Room room = new Room(0, null, 0, false);
     static void adminMenu(){
         int choose, phoneNum, index;
         String username, password, address, name;
@@ -220,7 +221,10 @@ public class Main {
     }
 
     static void roomMenu(){
-        int choose;
+        String roomCategory;
+        int choose, roomNumber, roomPrice, index;
+        boolean roomStatus;
+
         do {
             System.out.println("1. View room");
             System.out.println("2. Add room");
@@ -232,14 +236,48 @@ public class Main {
             input.nextLine();
             switch (choose){
                 case 1:
-
+                    Room.viewRoom();
                     break;
                 case 2:
-
+                    System.out.println("====Add Room======");
+                    System.out.print("Room Number: ");
+                    roomNumber = input.nextInt();
+                    input.nextLine();
+                    System.out.print("Room Category: ");
+                    roomCategory = input.nextLine();
+                    System.out.print("Room Price: ");
+                    roomPrice = input.nextInt();
+                    input.nextLine();
+                    System.out.print("Room Status: ");
+                    roomStatus = input.nextBoolean();
+                    room.addRoom(roomNumber, roomCategory, roomPrice, roomStatus);
+                    System.out.println("Room has successfully added!");
                     break;
                 case 3:
+                    room.viewRoom();
+                    System.out.print("Choose data you want to change: ");
+                    index = input.nextInt();
+                    input.nextLine();
+                    System.out.println("====Change Room's data======");
+                    System.out.print("Room Number: ");
+                    roomNumber = input.nextInt();
+                    input.nextLine();
+                    System.out.print("Room Category: ");
+                    roomCategory = input.nextLine();
+                    System.out.print("Room Price: ");
+                    roomPrice = input.nextInt();
+                    input.nextLine();
+                    System.out.print("Room Status: ");
+                    roomStatus = input.nextBoolean();
+                    room.updateRoom(index, roomNumber, roomCategory, roomPrice, roomStatus);
                     break;
                 case 4:
+                    room.viewRoom();
+                    System.out.print("Choose data you want to delete: ");
+                    index = input.nextInt();
+                    input.nextLine();
+                    room.deleteRoom(index);
+                    System.out.println("Successfully delete room");
                     break;
                 case 5:
                     break;
@@ -250,7 +288,8 @@ public class Main {
     }
 
     static void bookingMenu(){
-
+        room.viewAvailableRoom();
+        System.out.println();
     }
 
     static void homeAdmin() {
@@ -268,6 +307,7 @@ public class Main {
             input.nextLine();
             switch (choose){
                 case 1:
+                    receptionistMenu();
                     break;
                 case 2:
                     employeeMenu();
@@ -302,6 +342,7 @@ public class Main {
                     bookingMenu();
                     break;
                 case 2:
+                    room.viewRoom();
                     break;
             }
         } while (choose != 3);
@@ -336,11 +377,14 @@ public class Main {
 
     }
     public static void main(String[] args) {
+        room.roomInit();
         admin.initAdmin();
         employee.init();
         receptionist.init();
         guest.init();
         formLogin();
+
+
 
     }
 }
