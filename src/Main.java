@@ -3,6 +3,9 @@ import java.util.Scanner;
 public class Main {
     static Scanner input = new Scanner(System.in);
     static Admin admin = new Admin(null, null, null, 0, null);
+    static Employee employee = new Employee(null,null,null,null);
+    static Receptionist receptionist = new Receptionist(null,null,null,null,null,0);
+    static Guest guest = new Guest(null,null,null,0,0,null);
     static void adminMenu(){
         int choose, phoneNum, index;
         String username, password, address, name;
@@ -83,7 +86,7 @@ public class Main {
             input.nextLine();
             switch (choose){
                 case 1:
-
+                    employee.viewAll();
                     break;
                 case 2:
 
@@ -188,6 +191,9 @@ public class Main {
     }
     public static void main(String[] args) {
         admin.initAdmin();
+        employee.init();
+        receptionist.init();
+        guest.init();
         formLogin();
 
     }
