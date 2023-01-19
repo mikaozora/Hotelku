@@ -116,4 +116,13 @@ public class Receptionist {
         addReceptionist("mika","recep","recep","solo","009479",29);
     }
 
+    boolean checkRec(String username, String password){
+        for(Receptionist receptionist : rcpArr){
+            if(receptionist.getRecUsername().equals(username) && receptionist.getRecPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

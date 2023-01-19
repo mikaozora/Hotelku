@@ -309,8 +309,14 @@ public class Main {
 
     }
 
-    static int checkLogin(){
-        return 1;
+    static int checkLogin(String username, String password){
+        if(admin.checkAdmin(username, password)){
+            return 1;
+        }else if(receptionist.checkRec(username, password)){
+            return 2;
+        }else{
+            return 0;
+        }
     }
 
     static void formLogin(){
@@ -319,12 +325,13 @@ public class Main {
         String username = input.nextLine();
         System.out.print("Password: ");
         String password = input.nextLine();
-        boolean res = true;
-
-        if(res){
+        int res = checkLogin(username, password);
+        if(res == 1){
             homeAdmin();
-        }else{
+        }else if(res == 2){
             homeRec();
+        }else{
+            System.out.println("Wrong username or password");
         }
 
     }

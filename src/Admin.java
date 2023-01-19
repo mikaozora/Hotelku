@@ -54,6 +54,14 @@ public class Admin {
         adminList.add(new Admin("admin", "admin", "admin1", 12345, "sentul"));
     }
 
+    boolean checkAdmin(String username, String password){
+        for(Admin admin : adminList){
+            if(admin.getUsername().equals(username) && admin.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
     public String getUsername() {
         return username;
     }
