@@ -149,6 +149,75 @@ public class Main {
             }
         }while(choose != 5);
     }
+    static void receptionistMenu() {
+        int choose, index,age;
+        String phoneNum, username, password, address, name;
+
+        do {
+            System.out.println("1. View Receptionist");
+            System.out.println("2. Add Receptionist");
+            System.out.println("3. Update Receptionist");
+            System.out.println("4. Delete Receptionist");
+            System.out.println("5. Exit");
+            System.out.print(">> ");
+            choose = input.nextInt();
+            input.nextLine();
+            switch (choose) {
+                case 1:
+                    receptionist.viewAll();
+                    break;
+                case 2:
+                    System.out.println("====Add Receptionist======");
+                    System.out.print("Username: ");
+                    username = input.nextLine();
+                    System.out.print("Password: ");
+                    password = input.nextLine();
+                    System.out.print("Name: ");
+                    name = input.nextLine();
+                    System.out.print("Phone number: ");
+                    phoneNum = input.nextLine();
+                    input.nextLine();
+                    System.out.print("Address: ");
+                    address = input.nextLine();
+                    System.out.print("Age: ");
+                    age = input.nextInt();
+                    receptionist.addReceptionist(username, password, name, phoneNum, address, age);
+                    break;
+                case 3:
+                    receptionist.viewAll();
+                    System.out.print("Choose data you want to change: ");
+                    index = input.nextInt();
+                    input.nextLine();
+                    System.out.println("====Change Data Receptionist======");
+                    System.out.print("Username: ");
+                    username = input.nextLine();
+                    System.out.print("Password: ");
+                    password = input.nextLine();
+                    System.out.print("Name: ");
+                    name = input.nextLine();
+                    System.out.print("Phone number: ");
+                    phoneNum = input.nextLine();
+                    System.out.print("Address: ");
+                    address = input.nextLine();
+                    System.out.print("Age: ");
+                    age = input.nextInt();
+                    receptionist.updateReceptionist(index, username, password, name, phoneNum, address,age);
+                    break;
+                case 4:
+                    receptionist.viewAll();
+                    System.out.print("Choose data you want to delete: ");
+                    index = input.nextInt();
+                    input.nextLine();
+                    receptionist.deleteReceptionist(index);
+                    System.out.println("Successfully delete admin");
+                    break;
+                case 5:
+                    break;
+                default:
+                    break;
+            }
+        } while (choose != 5);
+    }
 
     static void roomMenu(){
         int choose;
