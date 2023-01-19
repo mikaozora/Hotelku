@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Receptionist {
     private String recId;
@@ -11,7 +12,7 @@ public class Receptionist {
     private int recAge;
 
     Receptionist(String recName, String recUsername, String recPassword, String recAddress, String recPhone, int recAge) {
-        this.recId = "" + (long) (Math.random() * 2000000000L);
+        this.recId = "" + ((long)(Math.random() * (9999999999L - 1000000000L + 1)) + 1000000000L);
         this.setRecName(recName);
         this.setRecUsername(recUsername);
         this.setRecPassword(recPassword);
@@ -96,10 +97,18 @@ public class Receptionist {
         rcpArr.remove(index - 1);
     }
 
-    public void viewAll(String recId, String recName, String recUsername, String recPassword, String recAddress, String recPhone, int recAge) {
+    public void viewAll() {
+        AtomicInteger i = new AtomicInteger(1);
         rcpArr.forEach(cetak -> {
-            System.out.println("Receptionist Id" + recId + "Receptionist Name" + recName + "Receptionist Username" + recUsername + "Receptionist Password" + recPassword
-                    + "Receptionist Address" + recAddress + "Receptionist Phone" + recPhone + "Receptionist Age" + recAge);
+
+            System.out.print(i + ". ");
+            System.out.println("Id: " + cetak.getRecId());
+            System.out.println("Name: " + cetak.getRecName());
+            System.out.println("Username: " + cetak.getRecUsername());
+            System.out.println("Address: " + cetak.getRecAddress());
+            System.out.println("Phone Number: " + cetak.getRecPhone());
+            System.out.println("Age: " + cetak.getRecAge());
+            i.getAndIncrement();
         });
     }
 
