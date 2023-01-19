@@ -1,3 +1,5 @@
+import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -74,9 +76,12 @@ public class Main {
     }
 
     static void employeeMenu(){
-        int choose;
+        String name, phoneNum, address, role;
+        int choose, index;
         do {
+
             System.out.println("1. View employee");
+
             System.out.println("2. Add employee");
             System.out.println("3. Update employee");
             System.out.println("4. Delete employee");
@@ -87,13 +92,59 @@ public class Main {
             switch (choose){
                 case 1:
                     employee.viewAll();
-                    break;
-                case 2:
 
                     break;
+                case 2:
+                    System.out.println("====Add Employee======");
+                    //Input Name
+                    System.out.print("Name: ");
+                    name = input.nextLine();
+                    //Input Role
+                    System.out.println("Role: ");
+                    role = input.nextLine();
+                    //Input Phone Number
+                    System.out.print("Phone number: ");
+                    phoneNum = input.nextLine();
+                    //Input Address
+                    System.out.print("Address: ");
+                    address = input.nextLine();
+
+                    employee.addEmployee(name, address, phoneNum, role);
+
+                    System.out.println("Employee's data has successfully added");
+                    break;
                 case 3:
+                    employee.viewAll();
+                    System.out.println("Choose data you want to change");
+                    index = input.nextInt();
+                    input.nextLine();
+                    System.out.println("====Change Data Employee======");
+                    //Update Name
+                    System.out.print("Name: ");
+                    name = input.nextLine();
+                    //Update Role
+                    System.out.println("Role: ");
+                    role = input.nextLine();
+                    //Update Phone Number
+                    System.out.print("Phone number: ");
+                    phoneNum = input.nextLine();
+                    //Update Address
+                    System.out.print("Address: ");
+                    address = input.nextLine();
+
+                    employee.updateEmployee(index, name, address, phoneNum, role);
+                    System.out.println("Employee Has Been Updated!");
+
                     break;
                 case 4:
+                    employee.viewAll();
+                    System.out.println("====Delete Data Employee======");
+                    //Input data employee to delete
+                    System.out.print("Choose data you want to delete: ");
+                    index = input.nextInt();
+                    input.nextLine();
+                    employee.deleteEmployee(index);
+                    System.out.println("Successfully delete employee");
                     break;
                 case 5:
                     break;
@@ -195,6 +246,7 @@ public class Main {
         receptionist.init();
         guest.init();
         formLogin();
+
 
     }
 }
