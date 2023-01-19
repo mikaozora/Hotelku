@@ -40,7 +40,7 @@ public class Room {
         this.status = status;
     }
 
-    private List<Room> listRoom = new ArrayList<>();
+    private static List<Room> listRoom = new ArrayList<>();
 
     Room(int roomNumber, String roomCategory, int roomPrice, boolean status){
         this.setRoomNumber(roomNumber);
@@ -49,13 +49,22 @@ public class Room {
         this.setStatus(status);
     }
 
-    public void viewRoom(){
+    public static void viewRoom(){
         listRoom.forEach(rooms -> {
             System.out.println("Room Number: " + rooms.getRoomNumber() + ", Room Category: " + rooms.getRoomCategory() + ", Room Price: " + rooms.getRoomPrice() + ", Room Status: " + rooms.isStatus());
         });
     }
 
+    public static void viewAvailableRoom(){
+        listRoom.forEach(rooms -> {
+            if (rooms.isStatus().equals("Available")) {
+                System.out.println("Room Number: " + rooms.getRoomNumber() + ", Room Category: " + rooms.getRoomCategory() + ", Room Price: " + rooms.getRoomPrice() + ", Room Status: " + rooms.isStatus());
+            }
+        });
+    }
+
     public void addRoom(int roomNumber, String roomCategory, int roomPrice, boolean status){
+
         listRoom.add(new Room(roomNumber, roomCategory, roomPrice, status));
     }
 
@@ -72,12 +81,12 @@ public class Room {
 
     public void roomInit(){
         addRoom(100, "Single", 700000,false);
-        addRoom(101, "Double", 1000000,false);
-        addRoom(102, "Queen", 2000000,false);
+        addRoom(101, "Double", 1000000,true);
+        addRoom(102, "Queen", 2000000,true);
         addRoom(103, "King", 4000000,false);
         addRoom(104, "Double", 1000000,false);
         addRoom(105, "Double", 1000000,false);
-        addRoom(106, "Queen", 2000000,false);
+        addRoom(106, "Queen", 2000000,true);
         addRoom(107, "Single", 700000,false);
         addRoom(108, "Queen", 2000000,false);
         addRoom(109, "King", 4000000,false);
