@@ -72,9 +72,13 @@ public class Booking {
     }
 
     List<Booking> bookList = new ArrayList<>();
+    List<Booking> bookHistory = new ArrayList<>();
+
+
 
     void checkIn(String bookType, String startDate, String endDate, String bookDesc, String guestId){
         bookList.add(new Booking(bookType, startDate, endDate, bookDesc, guestId));
+        bookHistory.add(new Booking(bookType, startDate, endDate, bookDesc, guestId));
     }
 
     public void viewBook(){
@@ -82,12 +86,13 @@ public class Booking {
         bookList.forEach(cetak -> {
 
             System.out.print(i + ". ");
-            System.out.println("Booking Id : " + cetak.getBookId());
-            System.out.println("Booking Type : " + cetak.getBookType());
             System.out.println("Booking Start Date : " + cetak.getStartDate());
-            System.out.println("Booking End Date : " + cetak.getEndDate());
-            System.out.println("Booking Description : " + cetak.getBookDesc());
-            System.out.println("Guest Id : " + cetak.getGuestId());
+            System.out.println("   Booking End Date : " + cetak.getEndDate());
+            System.out.println("   Booking Id : " + cetak.getBookId());
+            System.out.println("   Booking Type : " + cetak.getBookType());
+            System.out.println("   Booking Description : " + cetak.getBookDesc());
+            System.out.println("   Guest Id : " + cetak.getGuestId());
+            System.out.println();
             i.getAndIncrement();
         });
     }
@@ -97,11 +102,46 @@ public class Booking {
         System.out.println("Booking has been removed");
     }
 
+    void bookHistory(){
+        AtomicInteger i = new AtomicInteger(1);
+        bookHistory.forEach(x -> {
+            System.out.print(i + ". ");
+            System.out.println("Booking Start Date : " + x.getStartDate());
+            System.out.println("   Booking End Date : " + x.getEndDate());
+            System.out.println("   Booking Id : " + x.getBookId());
+            System.out.println("   Booking Type : " + x.getBookType());
+            System.out.println("   Booking Description : " + x.getBookDesc());
+            System.out.println("   Guest Id : " + x.getGuestId());
+            System.out.println();
+
+            Main.guest.guestHistory.forEach(y -> {
+
+                if (y.getGuestId().equals(x.getGuestId())){
+                    System.out.println("   Id: " + y.getGuestId());
+                    System.out.println("   Name: " + y.getGuestName());
+                    System.out.println("   Address: " + y.getGuestAddress());
+                    System.out.println("   Phone Number: " + y.getGuestPhone());
+                    System.out.println("   Room Number: " + y.getGuestRoom());
+                    System.out.println("   Age: " + y.getGuestAge());
+                    System.out.println("   Gender: " + y.getGuestGender());
+                    System.out.println();
+                }
+            });
+            i.getAndIncrement();
+        });
+    }
+
     void updateBook(int num, String bookType, String startDate, String endDate, String bookDesc, String guestId){
         bookList.get(num-1).bookType = bookType;
         bookList.get(num-1).bookDesc = bookDesc;
         bookList.get(num-1).guestId = guestId;
         bookList.get(num-1).startDate = startDate;
         bookList.get(num-1).endDate = endDate;
+
+        bookHistory.get(num-1).bookType = bookType;
+        bookHistory.get(num-1).bookDesc = bookDesc;
+        bookHistory.get(num-1).guestId = guestId;
+        bookHistory.get(num-1).startDate = startDate;
+        bookHistory.get(num-1).endDate = endDate;
     }
 }

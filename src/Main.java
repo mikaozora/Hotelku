@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -349,6 +351,8 @@ public class Main {
     }
 
 
+
+
     static void bookingMenu() {
         room.viewAvailableRoom();
 
@@ -372,7 +376,7 @@ public class Main {
         System.out.print("Guest Gender : ");
         gender = input.nextLine();
         guest.addGuest(name, address, phone, roomNumber, Age, gender);
-        System.out.println(guest.indexGuest());
+        System.out.println();
         System.out.println("====Add Booking======");
         System.out.print("Boking Type : ");
         type = input.nextLine();
@@ -383,9 +387,6 @@ public class Main {
         System.out.print("Booking Description : ");
         desc = input.nextLine();
         book.checkIn(type,start,end,desc,guest.indexGuest());
-
-
-
 
     }
 
@@ -448,10 +449,70 @@ public class Main {
                     room.viewRoom();
                     break;
                 case 3:
-                    book.viewBook();
+                    int chooseBook;
+                    System.out.println("========Check Booking========");
+                    System.out.println("1. Check Current Booking");
+                    System.out.println("2. Check Booking History");
+                    System.out.print(">> ");
+                    chooseBook = input.nextInt();
+                    input.nextLine();
+
+                    if (chooseBook == 1) {
+                        if (book.bookList.size() < 1){
+                            System.out.println();
+                            System.out.println("There's no booking currently");
+                            System.out.println("Press Enter to continue.....");
+                            input.nextLine();
+                            System.out.println();
+                            continue;
+                        }
+                        book.viewBook();
+                    }
+                    else {
+                        if (book.bookHistory.size() < 1){
+                            System.out.println();
+                            System.out.println("There's no booking history");
+                            System.out.println("Press Enter to continue.....");
+                            input.nextLine();
+                            System.out.println();
+                            continue;
+                        }
+                        book.bookHistory();
+                    }
                     break;
                 case 4:
+                    int updt;
                     guest.viewAll();
+                    System.out.println("1. Update Guest");
+                    System.out.println("2. Back");
+                    System.out.println(">> ");
+                    updt = input.nextInt();
+
+                    if (updt == 1){
+                        String name, address, phone, gender;
+                        int roomNumber, Age, inp;
+                        System.out.println("====Update Guest======");
+                        System.out.print("Choose data you want to update: ");
+                        inp = input.nextInt();
+                        System.out.print("Guest Name : ");
+                        name = input.nextLine();
+                        System.out.print("Guest Address : ");
+                        address = input.nextLine();
+                        System.out.print("Guest Phone : ");
+                        phone = input.nextLine();
+                        System.out.print("Guest Room Number : ");
+                        roomNumber = input.nextInt();
+                        System.out.print("Guest Age : ");
+                        Age = input.nextInt();
+                        input.nextLine();
+                        System.out.print("Guest Gender : ");
+                        gender = input.nextLine();
+                        guest.updateGuest(inp, name, address, phone, roomNumber, Age, gender);
+                        System.out.println();
+
+                    }else {
+                        continue;
+                    }
                     break;
             }
         } while (choose != 5);
@@ -470,9 +531,49 @@ public class Main {
         }
     }
 
+    public static void setTimeout(Runnable runnable, int delay){
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+                runnable.run();
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
+    }
+
+    static void font(){
+
+        setTimeout(() -> System.out.println("..........................................................................................."), 1000);
+        setTimeout(() -> System.out.println(".HHHH...HHHH....OOOOOOO.....TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK...KKKKK.UUUU...UUUU.."), 1200);
+        setTimeout(() -> System.out.println(".HHHH...HHHH....OOOOOOO.....TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK...KKKKK.UUUU...UUUU.."), 1400);
+        setTimeout(() -> System.out.println(".HHHH...HHHH...OOOOOOOOOO...TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK..KKKKK..UUUU...UUUU.."), 1600);
+        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOOOOOOOOO..TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK.KKKKK...UUUU...UUUU.."), 1800);
+        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOO..OOOOO.....TTTT......EEEEE........LLLL.......KKKKKKKKK....UUUU...UUUU.."), 2000);
+        setTimeout(() -> System.out.println(".HHHH...HHHH.HOOOO....OOOOO....TTTT......EEEEE........LLLL.......KKKKKKKK.....UUUU...UUUU.."), 2200);
+        setTimeout(() -> System.out.println(".HHHHHHHHHHH.HOOO......OOOO....TTTT......EEEEEEEEEEE..LLLL.......KKKKKKKK.....UUUU...UUUU.."), 2400);
+        setTimeout(() -> System.out.println(".HHHHHHHHHHH.HOOO......OOOO....TTTT......EEEEEEEEEEE..LLLL.......KKKKKKKK.....UUUU...UUUU.."), 2600);
+        setTimeout(() -> System.out.println(".HHHHHHHHHHH.HOOO......OOOO....TTTT......EEEEEEEEEEE..LLLL.......KKKKKKKKK....UUUU...UUUU.."), 2800);
+        setTimeout(() -> System.out.println(".HHHH...HHHH.HOOOO....OOOOO....TTTT......EEEEE........LLLL.......KKKK.KKKKK...UUUU...UUUU.."), 3000);
+        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOO..OOOOO.....TTTT......EEEEE........LLLL.......KKKK..KKKK...UUUU...UUUU.."), 3200);
+        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOOOOOOOOO.....TTTT......EEEEEEEEEEEE.LLLLLLLLLL.KKKK..KKKKK..UUUUUUUUUUU.."), 3400);
+        setTimeout(() -> System.out.println(".HHHH...HHHH...OOOOOOOOOO......TTTT......EEEEEEEEEEEE.LLLLLLLLLL.KKKK...KKKKK..UUUUUUUUU..."), 3600);
+        setTimeout(() -> System.out.println(".HHHH...HHHH.....OOOOOO........TTTT......EEEEEEEEEEEE.LLLLLLLLLL.KKKK...KKKKK...UUUUUUU...."), 3800);
+        setTimeout(() -> System.out.println("..........................................................................................."), 4000);
+
+    }
+
     static void formLogin(){
-        System.out.println("=========Login=========");
-        System.out.print("Username: ");
+        font();
+
+        setTimeout(() -> {
+            for (int i = 0; i < 50; ++i) System.out.println();
+        }, 4200);
+
+
+        setTimeout(() -> System.out.println("===================================== Login ==============================================="), 4400);
+        setTimeout(() -> System.out.print("Username: "), 4500);
         String username = input.nextLine();
         System.out.print("Password: ");
         String password = input.nextLine();
@@ -486,7 +587,6 @@ public class Main {
         }
 
     }
-
     public static void main(String[] args) {
         room.roomInit();
         admin.initAdmin();
