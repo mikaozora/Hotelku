@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Room {
     private int roomNumber;
@@ -50,17 +51,45 @@ public class Room {
     }
 
     public static void viewRoom(){
+
+        System.out.printf("==============================================================%n");
+        System.out.printf("|                         ROOM LISTS                         |%n");
+        System.out.printf("==============================================================%n%n");
+        System.out.printf("==============================================================%n");
+        System.out.printf("| %-2s | %-8s | %-12s | %-12s | %-12s |%n","NO","ROOM","CATEGORY","PRICE","STATUS");
+        System.out.printf("==============================================================%n");
+
+
+        AtomicInteger i = new AtomicInteger(1);
         listRoom.forEach(rooms -> {
-            System.out.println("Room Number: " + rooms.getRoomNumber() + ", Room Category: " + rooms.getRoomCategory() + ", Room Price: " + rooms.getRoomPrice() + ", Room Status: " + rooms.isStatus());
+            System.out.printf("| %-2s | %-8s | %-12s | %-12s | %-12s |%n",i,rooms.getRoomNumber(),rooms.getRoomCategory(),rooms.getRoomPrice(),rooms.isStatus());
+            i.getAndIncrement();
         });
+
+        System.out.printf("==============================================================%n");
+
     }
 
     public static void viewAvailableRoom(){
+
+        System.out.printf("==============================================================%n");
+        System.out.printf("|                     AVAILABLE ROOM LISTS                   |%n");
+        System.out.printf("==============================================================%n%n");
+        System.out.printf("==============================================================%n");
+        System.out.printf("| %-2s | %-8s | %-12s | %-12s | %-12s |%n","NO","ROOM","CATEGORY","PRICE","STATUS");
+        System.out.printf("==============================================================%n");
+
+
+        AtomicInteger i = new AtomicInteger(1);
         listRoom.forEach(rooms -> {
             if (rooms.isStatus().equals("Available")) {
-                System.out.println("Room Number: " + rooms.getRoomNumber() + ", Room Category: " + rooms.getRoomCategory() + ", Room Price: " + rooms.getRoomPrice() + ", Room Status: " + rooms.isStatus());
+                System.out.printf("| %-2s | %-8s | %-12s | %-12s | %-12s |%n", i, rooms.getRoomNumber(), rooms.getRoomCategory(), rooms.getRoomPrice(), rooms.isStatus());
+                i.getAndIncrement();
             }
         });
+
+        System.out.printf("==============================================================%n");
+
     }
 
     public void addRoom(int roomNumber, String roomCategory, int roomPrice, boolean status){

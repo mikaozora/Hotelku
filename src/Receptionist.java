@@ -98,18 +98,22 @@ public class Receptionist {
     }
 
     public void viewAll() {
+        System.out.printf("==================================================================================================================%n");
+        System.out.printf("|                                               RECEPTIONIST LISTS                                               |%n");
+        System.out.printf("==================================================================================================================%n%n");
+        System.out.printf("==================================================================================================================%n");
+        System.out.printf("| %-2s | %-14s | %-20s | %-20s | %-14s | %-19s | %-2s |%n","NO","ID","NAME","USERNAME","ADDRESS","PHONE","AGE");
+        System.out.printf("==================================================================================================================%n");
+
+
         AtomicInteger i = new AtomicInteger(1);
         rcpArr.forEach(cetak -> {
-
-            System.out.print(i + ". ");
-            System.out.println("Id: " + cetak.getRecId());
-            System.out.println("Name: " + cetak.getRecName());
-            System.out.println("Username: " + cetak.getRecUsername());
-            System.out.println("Address: " + cetak.getRecAddress());
-            System.out.println("Phone Number: " + cetak.getRecPhone());
-            System.out.println("Age: " + cetak.getRecAge());
+            System.out.printf("| %-2s | %-14s | %-20s | %-20s | %-14s | %-20s | %-2s |%n",i,cetak.getRecId(),cetak.getRecName(),cetak.getRecUsername(),cetak.getRecAddress(),cetak.getRecPhone(),cetak.getRecAge());
             i.getAndIncrement();
         });
+
+        System.out.printf("==================================================================================================================%n");
+//
     }
 
     public void init() {

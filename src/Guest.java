@@ -82,17 +82,18 @@ public class Guest {
     static List<Guest> guestHistory = new ArrayList<>();
 
     public void viewAll() {
+
+        System.out.printf("==================================================================================================================%n");
+        System.out.printf("|                                                   GUEST LISTS                                                  |%n");
+        System.out.printf("==================================================================================================================%n%n");
+        System.out.printf("==================================================================================================================%n");
+        System.out.printf("| %-2s | %-14s | %-20s | %-20s | %-14s | %-4S | %-4s | %-11s |%n","NO","ID","NAME","ADDRESS","PHONE","ROOM","AGE","GENDER");
+        System.out.printf("==================================================================================================================%n");
+
+
         AtomicInteger i = new AtomicInteger(1);
         guestsArr.forEach(cetak -> {
-
-            System.out.print(i + ". ");
-            System.out.println("Id: " + cetak.getGuestId());
-            System.out.println("   Name: " + cetak.getGuestName());
-            System.out.println("   Addres: " + cetak.getGuestAddress());
-            System.out.println("   Phone Number: " + cetak.getGuestPhone());
-            System.out.println("   Room Number: " + cetak.getGuestRoom());
-            System.out.println("   Age: " + cetak.getGuestAge());
-            System.out.println("   Gender: " + cetak.getGuestGender());
+            System.out.printf("| %-2s | %-14s | %-20s | %-20s | %-14s | %-4S | %-4s | %-11s |%n",i,cetak.getGuestId(),cetak.getGuestName(),cetak.getGuestAddress(),cetak.getGuestPhone(),cetak.getGuestRoom(),cetak.getGuestAge(),cetak.getGuestGender());
             i.getAndIncrement();
         });
     }
@@ -105,19 +106,13 @@ public class Guest {
 
     public void updateGuest(int index, String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {
 
+        guestsArr.get(index - 1).setGuestId(guestId);
         guestsArr.get(index - 1).setGuestName(guestName);
         guestsArr.get(index - 1).setGuestAddress(guestAddress);
         guestsArr.get(index - 1).setGuestPhone(guestPhone);
         guestsArr.get(index - 1).setGuestRoom(guestRoom);
         guestsArr.get(index - 1).setGuestAge(guestAge);
         guestsArr.get(index - 1).setGuestGender(guestGender);
-
-        guestHistory.get(index - 1).setGuestName(guestName);
-        guestHistory.get(index - 1).setGuestAddress(guestAddress);
-        guestHistory.get(index - 1).setGuestPhone(guestPhone);
-        guestHistory.get(index - 1).setGuestRoom(guestRoom);
-        guestHistory.get(index - 1).setGuestAge(guestAge);
-        guestHistory.get(index - 1).setGuestGender(guestGender);
     }
 
     public String indexGuest(){
