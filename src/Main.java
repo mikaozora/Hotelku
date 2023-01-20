@@ -380,9 +380,9 @@ public class Main {
         System.out.println("====Add Booking======");
         System.out.print("Boking Type : ");
         type = input.nextLine();
-        System.out.print("Start Date (dd/mm/yy) : ");
+        System.out.print("Start Date (yyyy-mm-dd) : ");
         start = input.nextLine();
-        System.out.print("End Date (dd/mm/yy) : ");
+        System.out.print("End Date (yyyy-mm-dd) : ");
         end = input.nextLine();
         System.out.print("Booking Description : ");
         desc = input.nextLine();

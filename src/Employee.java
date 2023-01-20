@@ -60,17 +60,21 @@ public class Employee {
     List<Employee> empArr = new ArrayList<>();
 
     public void viewAll() {
+        System.out.printf("=======================================================================================================%n");
+        System.out.printf("|                                            EMPLOYEE LISTS                                           |%n");
+        System.out.printf("=======================================================================================================%n%n");
+        System.out.printf("=======================================================================================================%n");
+        System.out.printf("| %-2s | %-14s | %-20s | %-20s | %-14s | %-14s |%n","NO","ID","NAME","ADDRESS","PHONE","RULE");
+        System.out.printf("=======================================================================================================%n");
+
+
         AtomicInteger i = new AtomicInteger(1);
         empArr.forEach(cetak -> {
-
-            System.out.print(i + ". ");
-            System.out.println("Id: " + cetak.getempId());
-            System.out.println("Name: " + cetak.getempName());
-            System.out.println("Addres: " + cetak.getempAddress());
-            System.out.println("Phone Number: " + cetak.getempPhone());
-            System.out.println("Role: " + cetak.getempRole());
+            System.out.printf("| %-2s | %-14s | %-20s | %-20s | %-14s | %-14s |%n",i,cetak.getempId(),cetak.getempName(),cetak.getempAddress(),cetak.getempPhone(),cetak.getempRole());
             i.getAndIncrement();
         });
+
+        System.out.printf("=======================================================================================================%n");
     }
 
     public void addEmployee(String empName, String empAddress, String empPhone, String empRole) {

@@ -82,19 +82,24 @@ public class Booking {
     }
 
     public void viewBook(){
+
+        System.out.printf("==================================================================================================================%n");
+        System.out.printf("|                                                  BOOKING LISTS                                                 |%n");
+        System.out.printf("==================================================================================================================%n%n");
+        System.out.printf("==================================================================================================================%n");
+        System.out.printf("| %-2s | %-15s | %-14s | %-14s | %-12s | %-19s | %-15s  |%n","NO","ID","TYPE","START DATE","END DATE","DESCRIPTION","ID GUEST");
+        System.out.printf("==================================================================================================================%n");
+
+
         AtomicInteger i = new AtomicInteger(1);
         bookList.forEach(cetak -> {
-
-            System.out.print(i + ". ");
-            System.out.println("Booking Start Date : " + cetak.getStartDate());
-            System.out.println("   Booking End Date : " + cetak.getEndDate());
-            System.out.println("   Booking Id : " + cetak.getBookId());
-            System.out.println("   Booking Type : " + cetak.getBookType());
-            System.out.println("   Booking Description : " + cetak.getBookDesc());
-            System.out.println("   Guest Id : " + cetak.getGuestId());
-            System.out.println();
+            System.out.printf("| %-2s | %-15s | %-14s | %-14s | %-12s | %-19s | %-15s  |%n",i,cetak.getBookId(),cetak.getBookType(),cetak.getStartDate(),cetak.getEndDate(),cetak.getBookDesc(),cetak.getGuestId());
             i.getAndIncrement();
         });
+
+        System.out.printf("==================================================================================================================%n");
+
+
     }
 
     void checkOut(int num){
