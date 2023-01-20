@@ -79,35 +79,45 @@ public class Guest {
 
     List<Guest> guestsArr = new ArrayList<>();
 
+    static List<Guest> guestHistory = new ArrayList<>();
+
     public void viewAll() {
         AtomicInteger i = new AtomicInteger(1);
         guestsArr.forEach(cetak -> {
 
             System.out.print(i + ". ");
             System.out.println("Id: " + cetak.getGuestId());
-            System.out.println("Name: " + cetak.getGuestName());
-            System.out.println("Addres: " + cetak.getGuestAddress());
-            System.out.println("Phone Number: " + cetak.getGuestPhone());
-            System.out.println("Room Number: " + cetak.getGuestRoom());
-            System.out.println("Age: " + cetak.getGuestAge());
-            System.out.println("Gender: " + cetak.getGuestGender());
+            System.out.println("   Name: " + cetak.getGuestName());
+            System.out.println("   Addres: " + cetak.getGuestAddress());
+            System.out.println("   Phone Number: " + cetak.getGuestPhone());
+            System.out.println("   Room Number: " + cetak.getGuestRoom());
+            System.out.println("   Age: " + cetak.getGuestAge());
+            System.out.println("   Gender: " + cetak.getGuestGender());
             i.getAndIncrement();
         });
     }
 
     public void addGuest(String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {
-        guestsArr.add(new Guest(guestName, guestAddress, guestPhone, guestRoom, guestAge, guestGender));
+        Guest temp = new Guest(guestName, guestAddress, guestPhone, guestRoom, guestAge, guestGender);
+        guestsArr.add(temp);
+        guestHistory.add(temp);
     }
 
-    public void updateGuest(int index, String guestName, String guestAddress, String guestId, String guestPhone, int guestRoom, int guestAge, String guestGender) {
+    public void updateGuest(int index, String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {
 
-        guestsArr.get(index - 1).setGuestId(guestId);
         guestsArr.get(index - 1).setGuestName(guestName);
         guestsArr.get(index - 1).setGuestAddress(guestAddress);
         guestsArr.get(index - 1).setGuestPhone(guestPhone);
         guestsArr.get(index - 1).setGuestRoom(guestRoom);
         guestsArr.get(index - 1).setGuestAge(guestAge);
         guestsArr.get(index - 1).setGuestGender(guestGender);
+
+        guestHistory.get(index - 1).setGuestName(guestName);
+        guestHistory.get(index - 1).setGuestAddress(guestAddress);
+        guestHistory.get(index - 1).setGuestPhone(guestPhone);
+        guestHistory.get(index - 1).setGuestRoom(guestRoom);
+        guestHistory.get(index - 1).setGuestAge(guestAge);
+        guestHistory.get(index - 1).setGuestGender(guestGender);
     }
 
     public String indexGuest(){
