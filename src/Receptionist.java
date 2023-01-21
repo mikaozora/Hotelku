@@ -129,4 +129,13 @@ public class Receptionist {
         return false;
     }
 
+    public boolean checkUsernameRec(String username){
+        for(Receptionist receptionist : rcpArr){
+            if(receptionist.getRecUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

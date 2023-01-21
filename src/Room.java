@@ -37,13 +37,17 @@ public class Room {
         return "Unavailable";
     }
 
+    public boolean getStatus(){
+        return status;
+    }
+
     public void setStatus(boolean status) {
         this.status = status;
     }
 
-    static List<Room> listRoom = new ArrayList<>();
+    List<Room> listRoom = new ArrayList<>();
 
-    static List<Room> listRoomAvailable = new ArrayList<>();
+    List<Room> listRoomAvailable = new ArrayList<>();
 
     Room(int roomNumber, String roomCategory, int roomPrice, boolean status){
         this.setRoomNumber(roomNumber);
@@ -52,7 +56,7 @@ public class Room {
         this.setStatus(status);
     }
 
-    public static void viewRoom(){
+    public void viewRoom(){
 
         System.out.printf("==============================================================%n");
         System.out.printf("|                         ROOM LISTS                         |%n");
@@ -72,7 +76,7 @@ public class Room {
 
     }
 
-    public static void viewAvailableRoom(){
+    public void viewAvailableRoom(){
 
         System.out.printf("==============================================================%n");
         System.out.printf("|                     AVAILABLE ROOM LISTS                   |%n");

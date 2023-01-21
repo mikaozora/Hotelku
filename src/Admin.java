@@ -7,12 +7,12 @@ public class Admin {
     String username;
     String password;
     String adminName;
-    int adminPhoneNum;
+    String adminPhoneNum;
     String adminAddress;
 
     List<Admin> adminList = new ArrayList<>();
 
-    Admin(String username, String password, String adminName, int adminPhoneNum, String adminAddress) {
+    Admin(String username, String password, String adminName, String adminPhoneNum, String adminAddress) {
         this.adminId = "" + ((long) (Math.random() * (9999999999L - 1000000000L + 1)) + 1000000000L);
         this.setUsername(username);
         this.setPassword(password);
@@ -39,12 +39,11 @@ public class Admin {
         System.out.printf("=======================================================================================================%n");
     }
 
-    void addAdmin(String username, String password, String adminName, int adminPhoneNum, String adminAddress) {
+    void addAdmin(String username, String password, String adminName, String adminPhoneNum, String adminAddress) {
         adminList.add(new Admin(username, password, adminName, adminPhoneNum, adminAddress));
     }
 
-    void updateAdmin(int index, String username, String password, String adminName, int adminPhoneNum, String adminAddress) {
-        System.out.println(index);
+    void updateAdmin(int index, String username, String password, String adminName, String adminPhoneNum, String adminAddress) {
         adminList.get(index).setUsername(username);
         adminList.get(index).setPassword(password);
         adminList.get(index).setAdminName(adminName);
@@ -57,7 +56,7 @@ public class Admin {
     }
 
     void initAdmin() {
-        adminList.add(new Admin("admin", "admin", "admin1", 12345, "sentul"));
+        adminList.add(new Admin("admin", "admin", "admin1", "12345", "sentul"));
     }
 
     int checkAdmin(String username, String password) {
@@ -97,11 +96,11 @@ public class Admin {
         this.adminName = adminName;
     }
 
-    public int getAdminPhoneNum() {
+    public String getAdminPhoneNum() {
         return adminPhoneNum;
     }
 
-    public void setAdminPhoneNum(int adminPhoneNum) {
+    public void setAdminPhoneNum(String adminPhoneNum) {
         this.adminPhoneNum = adminPhoneNum;
     }
 
@@ -111,5 +110,18 @@ public class Admin {
 
     public void setAdminAddress(String adminAddress) {
         this.adminAddress = adminAddress;
+    }
+
+    public List<Admin> getListAdmin(){
+        System.out.println(adminList);
+        return adminList;
+    }
+    public boolean checkAdminUsername(String username){
+        for(Admin admin : adminList){
+            if(admin.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
     }
 }
