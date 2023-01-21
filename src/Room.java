@@ -94,6 +94,26 @@ public class Room {
 
     }
 
+    void viewUnavailableRoom(){
+        System.out.printf("==============================================================%n");
+        System.out.printf("|                     UNAVAILABLE ROOM LISTS                   |%n");
+        System.out.printf("==============================================================%n%n");
+        System.out.printf("==============================================================%n");
+        System.out.printf("| %-2s | %-8s | %-12s | %-12s | %-12s |%n","NO","ROOM","CATEGORY","PRICE","STATUS");
+        System.out.printf("==============================================================%n");
+
+
+        AtomicInteger i = new AtomicInteger(1);
+        listRoom.forEach(rooms -> {
+            if (rooms.isStatus().equals("Unavailable")) {
+                System.out.printf("| %-2s | %-8s | %-12s | %-12s | %-12s |%n", i, rooms.getRoomNumber(), rooms.getRoomCategory(), rooms.getRoomPrice(), rooms.isStatus());
+                i.getAndIncrement();
+            }
+        });
+
+        System.out.printf("==============================================================%n");
+    }
+
     public void addRoom(int roomNumber, String roomCategory, int roomPrice, boolean status){
 
         listRoom.add(new Room(roomNumber, roomCategory, roomPrice, status));
@@ -111,6 +131,19 @@ public class Room {
         listRoom.get(num-1).roomCategory = roomCategory;
         listRoom.get(num-1).roomPrice = roomPrice;
         listRoom.get(num-1).status = status;
+
+        listRoomAvailable.forEach(x -> {
+            if (x.getRoomNumber() == listRoom.get(num-1).roomNumber){
+                x.setRoomNumber(roomNumber);
+                x.setRoomCategory(roomCategory);
+                x.setRoomPrice(roomPrice);
+                x.setStatus(status);
+
+                if (!x.status){
+                    listRoomAvailable.remove(x);
+                }
+            }
+        });
     }
 
     public void deleteRoom(int num){

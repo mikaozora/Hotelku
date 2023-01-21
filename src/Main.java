@@ -383,7 +383,7 @@ public class Main {
         guest.addGuest(name, address, phone, roomNumber, Age, gender);
         System.out.println();
         System.out.println("====Add Booking======");
-        System.out.print("Boking Type : ");
+        System.out.print("Booking Type : ");
         type = input.nextLine();
         System.out.print("Start Date (yyyy-mm-dd) : ");
         start = input.nextLine();
@@ -392,6 +392,18 @@ public class Main {
         System.out.print("Booking Description : ");
         desc = input.nextLine();
         book.checkIn(type,start,end,desc,guest.indexGuest());
+
+        room.listRoom.forEach(x -> {
+            if (x.getRoomNumber() == roomNumber){
+                x.setStatus(false);
+
+                room.listRoomAvailable.forEach(y -> {
+                    if (y.getRoomNumber() == x.getRoomNumber()){
+                        room.listRoomAvailable.remove(y);
+                    }
+                });
+            }
+        });
 
         System.out.println("====Add Payment======");
         System.out.print("Payment Method: ");
@@ -408,18 +420,19 @@ public class Main {
         payment.viewPayment();
     }
     static void removeBooking(){
-        room.viewAvailableRoom();
-        System.out.println("==============");
-        System.out.println("Choose number of room you wish to check out");
+        guest.viewAll();
+        System.out.println("==============================================");
+        System.out.println("Choose Guest you want to check out");
         System.out.print(">> ");
-        int remBook = input.nextInt();
+        int guestOut = input.nextInt();
         room.listRoom.forEach(z -> {
-            if (z.getRoomNumber() == guest.guestsArr.get(remBook-1).getGuestRoom()){
-                z.setStatus(false);
+            if (z.getRoomNumber() == guest.guestsArr.get(guestOut-1).getGuestRoom()){
+                z.setStatus(true);
+                room.listRoomAvailable.add(z);
             }
         });
-        guest.deleteGuest(remBook);
-        book.checkOut(remBook);
+        guest.deleteGuest(guestOut);
+        book.checkOut(guestOut);
     }
 
     static void homeAdmin() {
@@ -489,6 +502,8 @@ public class Main {
                     System.out.println("========Check Booking========");
                     System.out.println("1. Check Current Booking");
                     System.out.println("2. Check Booking History");
+                    System.out.println("3. Update Booking");
+                    System.out.println("4. Back");
                     System.out.print(">> ");
                     chooseBook = input.nextInt();
                     input.nextLine();
@@ -504,7 +519,7 @@ public class Main {
                         }
                         book.viewBook();
                     }
-                    else {
+                    else if(chooseBook == 2){
                         if (book.bookHistory.size() < 1){
                             System.out.println();
                             System.out.println("There's no booking history");
@@ -514,6 +529,27 @@ public class Main {
                             continue;
                         }
                         book.bookHistory();
+                    }
+                    else if (chooseBook == 3){
+                        String type, start, end, desc;
+                        int chooseBookUpdate;
+                        System.out.println("Choose Data you want to update");
+                        System.out.print(">>");
+                        chooseBookUpdate = input.nextInt();
+                        input.nextLine();
+                        System.out.println("====Update Booking======");
+                        System.out.print("Booking Type : ");
+                        type = input.nextLine();
+                        System.out.print("Start Date (yyyy-mm-dd) : ");
+                        start = input.nextLine();
+                        System.out.print("End Date (yyyy-mm-dd) : ");
+                        end = input.nextLine();
+                        System.out.print("Booking Description : ");
+                        desc = input.nextLine();
+                        book.updateBook(chooseBookUpdate,type,start,end,desc);
+                        System.out.println();
+                    }else if (chooseBook == 4){
+                        continue;
                     }
                     break;
                 case 5:
@@ -584,35 +620,29 @@ public class Main {
 
     static void font(){
 
-        setTimeout(() -> System.out.println("..........................................................................................."), 1000);
-        setTimeout(() -> System.out.println(".HHHH...HHHH....OOOOOOO.....TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK...KKKKK.UUUU...UUUU.."), 1200);
-        setTimeout(() -> System.out.println(".HHHH...HHHH....OOOOOOO.....TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK...KKKKK.UUUU...UUUU.."), 1400);
-        setTimeout(() -> System.out.println(".HHHH...HHHH...OOOOOOOOOO...TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK..KKKKK..UUUU...UUUU.."), 1600);
-        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOOOOOOOOO..TTTTTTTTTTT..EEEEEEEEEEEE.LLLL.......KKKK.KKKKK...UUUU...UUUU.."), 1800);
-        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOO..OOOOO.....TTTT......EEEEE........LLLL.......KKKKKKKKK....UUUU...UUUU.."), 2000);
-        setTimeout(() -> System.out.println(".HHHH...HHHH.HOOOO....OOOOO....TTTT......EEEEE........LLLL.......KKKKKKKK.....UUUU...UUUU.."), 2200);
-        setTimeout(() -> System.out.println(".HHHHHHHHHHH.HOOO......OOOO....TTTT......EEEEEEEEEEE..LLLL.......KKKKKKKK.....UUUU...UUUU.."), 2400);
-        setTimeout(() -> System.out.println(".HHHHHHHHHHH.HOOO......OOOO....TTTT......EEEEEEEEEEE..LLLL.......KKKKKKKK.....UUUU...UUUU.."), 2600);
-        setTimeout(() -> System.out.println(".HHHHHHHHHHH.HOOO......OOOO....TTTT......EEEEEEEEEEE..LLLL.......KKKKKKKKK....UUUU...UUUU.."), 2800);
-        setTimeout(() -> System.out.println(".HHHH...HHHH.HOOOO....OOOOO....TTTT......EEEEE........LLLL.......KKKK.KKKKK...UUUU...UUUU.."), 3000);
-        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOO..OOOOO.....TTTT......EEEEE........LLLL.......KKKK..KKKK...UUUU...UUUU.."), 3200);
-        setTimeout(() -> System.out.println(".HHHH...HHHH..OOOOOOOOOOOO.....TTTT......EEEEEEEEEEEE.LLLLLLLLLL.KKKK..KKKKK..UUUUUUUUUUU.."), 3400);
-        setTimeout(() -> System.out.println(".HHHH...HHHH...OOOOOOOOOO......TTTT......EEEEEEEEEEEE.LLLLLLLLLL.KKKK...KKKKK..UUUUUUUUU..."), 3600);
-        setTimeout(() -> System.out.println(".HHHH...HHHH.....OOOOOO........TTTT......EEEEEEEEEEEE.LLLLLLLLLL.KKKK...KKKKK...UUUUUUU...."), 3800);
-        setTimeout(() -> System.out.println("..........................................................................................."), 4000);
+        setTimeout(() -> System.out.println(" ██╗  ██╗ ██████╗ ████████╗███████╗██╗     ██╗  ██╗██╗   ██╗"), 1000);
+        setTimeout(() -> System.out.println(" ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║     ██║ ██╔╝██║   ██║"), 1300);
+        setTimeout(() -> System.out.println(" ███████║██║   ██║   ██║   █████╗  ██║     █████╔╝ ██║   ██║"), 1500);
+        setTimeout(() -> System.out.println(" ██╔══██║██║   ██║   ██║   ██╔══╝  ██║     ██╔═██╗ ██║   ██║"), 1700);
+        setTimeout(() -> System.out.println(" ██║  ██║╚██████╔╝   ██║   ███████╗███████╗██║  ██╗╚██████╔╝"), 1900);
+        setTimeout(() -> System.out.println(" ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝"), 2100);
 
     }
 
     static void formLogin(){
         font();
 
+//        setTimeout(() -> {
+//            for (int i = 0; i < 50; ++i) System.out.println();
+//        }, 2800);
+
         setTimeout(() -> {
-            for (int i = 0; i < 50; ++i) System.out.println();
-        }, 4200);
+            System.out.println();
+        }, 2500);
 
 
-        setTimeout(() -> System.out.println("===================================== Login ==============================================="), 4400);
-        setTimeout(() -> System.out.print("Username: "), 4500);
+        setTimeout(() -> System.out.println("===================================== Login ==============================================="), 3000);
+        setTimeout(() -> System.out.print("Username: "), 3100);
         String username = input.nextLine();
         System.out.print("Password: ");
         String password = input.nextLine();
