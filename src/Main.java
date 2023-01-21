@@ -1,9 +1,8 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     static Scanner input = new Scanner(System.in);
@@ -393,17 +392,21 @@ public class Main {
         desc = input.nextLine();
         book.checkIn(type,start,end,desc,guest.indexGuest());
 
+        final int[] getIndex = new int[1];
+
         room.listRoom.forEach(x -> {
             if (x.getRoomNumber() == roomNumber){
                 x.setStatus(false);
 
                 room.listRoomAvailable.forEach(y -> {
                     if (y.getRoomNumber() == x.getRoomNumber()){
-                        room.listRoomAvailable.remove(y);
+                        getIndex[0] = room.listRoomAvailable.indexOf(y);
                     }
                 });
             }
         });
+
+        room.listRoomAvailable.remove(getIndex[0]);
 
         System.out.println("====Add Payment======");
         System.out.print("Payment Method: ");
@@ -425,6 +428,7 @@ public class Main {
         System.out.println("Choose Guest you want to check out");
         System.out.print(">> ");
         int guestOut = input.nextInt();
+        input.nextLine();
         room.listRoom.forEach(z -> {
             if (z.getRoomNumber() == guest.guestsArr.get(guestOut-1).getGuestRoom()){
                 z.setStatus(true);
@@ -665,7 +669,7 @@ public class Main {
         admin.initAdmin();
         employee.init();
         receptionist.init();
-        guest.init();
+//        guest.init();
         formLogin();
 
     }
