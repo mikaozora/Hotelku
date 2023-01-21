@@ -4,12 +4,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Payment {
     String paymentId;
     String paymentMethod;
     int totalPayment;
-    Date paymentDate = new Date();
+    String paymentDate;
     boolean paymentStat;
 
     static Booking date = new Booking(null,null,null,null,null);
@@ -40,12 +41,20 @@ public class Payment {
         this.totalPayment = totalPayment;
     }
 
-    public Date getPaymentDate() {
+    public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public boolean getPaymentStat() {
+        return paymentStat;
+    }
+
+    public void setPaymentStat(Date paymentDate) {
+        this.paymentStat = paymentStat;
     }
 
     public String isPaymentStat() {
@@ -58,7 +67,7 @@ public class Payment {
         this.paymentStat = paymentStat;
     }
 
-    Payment(String paymentMethod, int totalPayment, Date paymentDate, boolean paymentStat){
+    Payment(String paymentMethod, int totalPayment, String paymentDate, boolean paymentStat){
         this.setPaymentDate(paymentDate);
         this.paymentId = ""+(long)(Math.random() * 20000000000L);
         this.setPaymentStat(paymentStat);
@@ -68,13 +77,40 @@ public class Payment {
 
     List<Payment> paymentList = new ArrayList<>();
 
-    void viewPayment(){
-        paymentList.forEach(payment -> {
-            System.out.println("Payment Date: " + payment.getPaymentDate() + ", Payment ID: " + payment.getPaymentId() + ", Payment Method: " + payment.getPaymentMethod() + ", Total Payment: " + payment.getTotalPayment() + "Payment Status: " + payment.isPaymentStat());
-        });
+    void notaPayment(){
+        int index = paymentList.size() - 1;
+        System.out.println("=======================================");
+        System.out.println("=============== HOTELKU ===============");
+        System.out.println("=========== PAYMENT RESULT ===========");
+        System.out.println("=======================================");
+        System.out.printf("|    ID     :    %-21s|%n",paymentList.get(index).getPaymentId());
+        System.out.printf("|    DATE   :    %-21s|%n",paymentList.get(index).getPaymentDate());
+        System.out.printf("|    METHOD :    %-21s|%n",paymentList.get(index).getPaymentMethod());
+        System.out.printf("|    TOTAL  :    %-21s|%n",paymentList.get(index).getTotalPayment());
+        System.out.println("=======================================");
+        System.out.println("=========== PAYMENT SUCCESS ==========");
+        System.out.println("=======================================");
     }
 
-    void makePayment(String paymentMethod, int totalPayment, Date paymentDate, boolean paymentStat){
+    void viewPayment(){
+        System.out.printf("=======================================================================================================%n");
+        System.out.printf("|                                            PAYMENT LISTS                                            |%n");
+        System.out.printf("=======================================================================================================%n%n");
+        System.out.printf("=======================================================================================================%n");
+        System.out.printf("| %-2s | %-14s | %-14s | %-20s | %-20s | %-14s |%n","NO","ID","DATE","METHOD","TOTAL","STATUS");
+        System.out.printf("=======================================================================================================%n");
+
+
+        AtomicInteger i = new AtomicInteger(1);
+        paymentList.forEach(cetak -> {
+            System.out.printf("| %-2s | %-14s | %-14s | %-20s | %-20s | %-14s |%n",i,cetak.getPaymentId(),cetak.getPaymentDate(),cetak.getPaymentMethod(),cetak.getTotalPayment(),cetak.getPaymentStat());
+            i.getAndIncrement();
+        });
+
+        System.out.printf("=======================================================================================================%n");
+    }
+
+    void makePayment(String paymentMethod, int totalPayment, String paymentDate, boolean paymentStat){
         paymentList.add(new Payment(paymentMethod, totalPayment, paymentDate, paymentStat));
     }
 

@@ -98,6 +98,8 @@ public class Guest {
             System.out.printf("| %-2s | %-14s | %-20s | %-20s | %-14s | %-4S | %-4s | %-11s |%n",i,cetak.getGuestId(),cetak.getGuestName(),cetak.getGuestAddress(),cetak.getGuestPhone(),cetak.getGuestRoom(),cetak.getGuestAge(),cetak.getGuestGender());
             i.getAndIncrement();
         });
+        System.out.printf("==================================================================================================================%n");
+
     }
 
     public void addGuest(String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {

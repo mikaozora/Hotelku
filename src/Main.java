@@ -416,8 +416,8 @@ public class Main {
         System.out.println(count);
         int total = (int) count * room.getPriceByIndex(roomIndex);
         System.out.println(total);
-        payment.makePayment(payMethod, total, null, true);
-        payment.viewPayment();
+        payment.makePayment(payMethod, total, book.getStartDateByIndex(), true);
+        payment.notaPayment();
     }
     static void removeBooking(){
         guest.viewAll();
@@ -483,7 +483,8 @@ public class Main {
             System.out.println("3. Check Room");
             System.out.println("4. Check Booking");
             System.out.println("5. Check Guest");
-            System.out.println("6. Logout");
+            System.out.println("6. Payment History");
+            System.out.println("7. Logout");
             System.out.print(">> ");
             choose = input.nextInt();
             input.nextLine();
@@ -589,8 +590,11 @@ public class Main {
                         continue;
                     }
                     break;
+
+                case 6 :
+                    payment.viewPayment();
             }
-        } while (choose != 6);
+        } while (choose != 7);
         formLogin();
 
     }
