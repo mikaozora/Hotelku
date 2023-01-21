@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -10,6 +13,7 @@ public class Main {
     static Guest guest = new Guest(null, null, null, 0, 0, null);
     static Room room = new Room(0, null, 0, false);
     static Booking book = new Booking(null,null,null,null, null);
+    static Payment payment = new Payment(null, 0, null, false);
 
     static int indexLogin = -1;
 
@@ -357,7 +361,8 @@ public class Main {
         room.viewAvailableRoom();
 
         String name, address, phone, gender;
-        int roomNumber, Age;
+        String payMethod;
+        int roomIndex, Age;
 
         String type,start,end,desc;
 
@@ -368,8 +373,10 @@ public class Main {
         address = input.nextLine();
         System.out.print("Guest Phone : ");
         phone = input.nextLine();
-        System.out.print("Guest Room Number : ");
-        roomNumber = input.nextInt();
+        System.out.print("Choose Room number : ");
+        roomIndex = input.nextInt();
+        int roomNumber = room.getRoomNumberByIndex(roomIndex);
+        System.out.println(roomNumber);
         System.out.print("Guest Age : ");
         Age = input.nextInt();
         input.nextLine();
@@ -388,6 +395,19 @@ public class Main {
         desc = input.nextLine();
         book.checkIn(type,start,end,desc,guest.indexGuest());
 
+        System.out.println("====Add Payment======");
+        System.out.print("Payment Method: ");
+        payMethod = input.nextLine();
+
+        LocalDate date1 = LocalDate.parse(book.getStartDateByIndex(), DateTimeFormatter.ISO_DATE);
+        LocalDate date2 = LocalDate.parse(book.getEndDateByIndex(), DateTimeFormatter.ISO_DATE);
+
+        long count = ChronoUnit.DAYS.between(date1,date2);
+        System.out.println(count);
+        int total = (int) count * room.getPriceByIndex(roomIndex);
+        System.out.println(total);
+        payment.makePayment(payMethod, total, null, true);
+        payment.viewPayment();
     }
 
     static void homeAdmin() {

@@ -79,6 +79,8 @@ public class Guest {
 
     List<Guest> guestsArr = new ArrayList<>();
 
+
+
     static List<Guest> guestHistory = new ArrayList<>();
 
     public void viewAll() {
@@ -103,6 +105,8 @@ public class Guest {
         guestsArr.add(temp);
         guestHistory.add(temp);
     }
+
+
 
     public void updateGuest(int index, String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {
 

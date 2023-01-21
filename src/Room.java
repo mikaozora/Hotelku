@@ -43,6 +43,8 @@ public class Room {
 
     private static List<Room> listRoom = new ArrayList<>();
 
+    static List<Room> listRoomAvailable = new ArrayList<>();
+
     Room(int roomNumber, String roomCategory, int roomPrice, boolean status){
         this.setRoomNumber(roomNumber);
         this.setRoomCategory(roomCategory);
@@ -95,6 +97,13 @@ public class Room {
     public void addRoom(int roomNumber, String roomCategory, int roomPrice, boolean status){
 
         listRoom.add(new Room(roomNumber, roomCategory, roomPrice, status));
+        if(status){
+            listRoomAvailable.add(new Room(roomNumber, roomCategory, roomPrice, status));
+        }
+    }
+
+    public int getRoomNumberByIndex(int index){
+        return listRoomAvailable.get(index-1).getRoomNumber();
     }
 
     public void updateRoom(int num, int roomNumber, String roomCategory, int roomPrice, boolean status){
@@ -119,6 +128,10 @@ public class Room {
         addRoom(107, "Single", 700000,false);
         addRoom(108, "Queen", 2000000,false);
         addRoom(109, "King", 4000000,false);
+    }
+
+    public int getPriceByIndex(int index){
+        return listRoomAvailable.get(index-1).getRoomPrice();
     }
 
 }
