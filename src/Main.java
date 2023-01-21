@@ -355,8 +355,6 @@ public class Main {
     }
 
 
-
-
     static void bookingMenu() {
         room.viewAvailableRoom();
 
@@ -409,6 +407,20 @@ public class Main {
         payment.makePayment(payMethod, total, null, true);
         payment.viewPayment();
     }
+    static void removeBooking(){
+        room.viewAvailableRoom();
+        System.out.println("==============");
+        System.out.println("Choose number of room you wish to check out");
+        System.out.print(">> ");
+        int remBook = input.nextInt();
+        room.listRoom.forEach(z -> {
+            if (z.getRoomNumber() == guest.guestsArr.get(remBook-1).getGuestRoom()){
+                z.setStatus(false);
+            }
+        });
+        guest.deleteGuest(remBook);
+        book.checkOut(remBook);
+    }
 
     static void homeAdmin() {
 
@@ -454,10 +466,11 @@ public class Main {
         do {
             System.out.println("======Hotelku Receptionist=======");
             System.out.println("1. Add Booking");
-            System.out.println("2. Check Room");
-            System.out.println("3. Check Booking");
-            System.out.println("4. Check Guest");
-            System.out.println("5. Logout");
+            System.out.println("2. Remove Booking");
+            System.out.println("3. Check Room");
+            System.out.println("4. Check Booking");
+            System.out.println("5. Check Guest");
+            System.out.println("6. Logout");
             System.out.print(">> ");
             choose = input.nextInt();
             input.nextLine();
@@ -466,9 +479,12 @@ public class Main {
                     bookingMenu();
                     break;
                 case 2:
-                    room.viewRoom();
+                    removeBooking();
                     break;
                 case 3:
+                    room.viewRoom();
+                    break;
+                case 4:
                     int chooseBook;
                     System.out.println("========Check Booking========");
                     System.out.println("1. Check Current Booking");
@@ -500,9 +516,11 @@ public class Main {
                         book.bookHistory();
                     }
                     break;
-                case 4:
+                case 5:
                     int updt;
                     guest.viewAll();
+                    System.out.println();
+                    System.out.println("=================================");
                     System.out.println("1. Update Guest");
                     System.out.println("2. Back");
                     System.out.println(">> ");
@@ -514,6 +532,7 @@ public class Main {
                         System.out.println("====Update Guest======");
                         System.out.print("Choose data you want to update: ");
                         inp = input.nextInt();
+                        input.nextLine();
                         System.out.print("Guest Name : ");
                         name = input.nextLine();
                         System.out.print("Guest Address : ");
@@ -535,7 +554,7 @@ public class Main {
                     }
                     break;
             }
-        } while (choose != 5);
+        } while (choose != 6);
         formLogin();
 
     }
@@ -614,8 +633,6 @@ public class Main {
         receptionist.init();
         guest.init();
         formLogin();
-
-
 
     }
 }

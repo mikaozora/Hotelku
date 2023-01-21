@@ -77,8 +77,9 @@ public class Booking {
 
 
     void checkIn(String bookType, String startDate, String endDate, String bookDesc, String guestId){
-        bookList.add(new Booking(bookType, startDate, endDate, bookDesc, guestId));
-        bookHistory.add(new Booking(bookType, startDate, endDate, bookDesc, guestId));
+        Booking temp = new Booking(bookType, startDate, endDate, bookDesc, guestId);
+        bookList.add(temp);
+        bookHistory.add(temp);
     }
 
     public void viewBook(){
@@ -135,18 +136,20 @@ public class Booking {
         });
     }
 
-    void updateBook(int num, String bookType, String startDate, String endDate, String bookDesc, String guestId){
+    void updateBook(int num, String bookType, String startDate, String endDate, String bookDesc){
         bookList.get(num-1).bookType = bookType;
         bookList.get(num-1).bookDesc = bookDesc;
-        bookList.get(num-1).guestId = guestId;
         bookList.get(num-1).startDate = startDate;
         bookList.get(num-1).endDate = endDate;
 
-        bookHistory.get(num-1).bookType = bookType;
-        bookHistory.get(num-1).bookDesc = bookDesc;
-        bookHistory.get(num-1).guestId = guestId;
-        bookHistory.get(num-1).startDate = startDate;
-        bookHistory.get(num-1).endDate = endDate;
+        bookHistory.forEach(x -> {
+            if (x.getGuestId().equals(bookList.get(num-1).getGuestId())){
+                x.setBookType(bookType);
+                x.setBookDesc(bookDesc);
+                x.setStartDate(startDate);
+                x.setEndDate(endDate);
+            }
+        });
     }
 
     public int sizeList(){

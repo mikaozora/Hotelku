@@ -110,13 +110,24 @@ public class Guest {
 
     public void updateGuest(int index, String guestName, String guestAddress, String guestPhone, int guestRoom, int guestAge, String guestGender) {
 
-        guestsArr.get(index - 1).setGuestId(guestId);
         guestsArr.get(index - 1).setGuestName(guestName);
         guestsArr.get(index - 1).setGuestAddress(guestAddress);
         guestsArr.get(index - 1).setGuestPhone(guestPhone);
         guestsArr.get(index - 1).setGuestRoom(guestRoom);
         guestsArr.get(index - 1).setGuestAge(guestAge);
         guestsArr.get(index - 1).setGuestGender(guestGender);
+
+        guestHistory.forEach(x -> {
+            if (x.getGuestId().equals(guestsArr.get(index-1).getGuestId())){
+                x.setGuestName(guestName);
+                x.setGuestAddress(guestAddress);
+                x.setGuestPhone(guestPhone);
+                x.setGuestRoom(guestRoom);
+                x.setGuestAge(guestAge);
+                x.setGuestGender(guestGender);
+            }
+        });
+
     }
 
     public String indexGuest(){
