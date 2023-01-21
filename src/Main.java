@@ -276,6 +276,13 @@ public class Main {
     }
 
     static void updateEmployee() {
+        if (employee.empArr.size() < 1){
+            System.out.println("There are no Employees currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         String name = null, phoneNum = null, address = null, role = null, badInput = null;
         int index = 0;
         employee.viewAll();
@@ -352,6 +359,13 @@ public class Main {
     }
 
     static void deleteEmployee() {
+        if (employee.empArr.size() < 1){
+            System.out.println("There are no Employees currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         int index = 0;
         String badInput = null;
         employee.viewAll();
@@ -389,6 +403,13 @@ public class Main {
             input.nextLine();
             switch (choose) {
                 case 1:
+                    if (employee.empArr.size() < 1){
+                        System.out.println("There are no Employees currently");
+                        System.out.print("Press Enter to Continue.....");
+                        input.nextLine();
+                        System.out.println();
+                        continue;
+                    }
                     employee.viewAll();
                     break;
                 case 2:
@@ -492,6 +513,14 @@ public class Main {
         int age = 0, index = 0;
         String phoneNum = null, username = null, password = null, address = null, name = null, badInput = null;
         boolean checkAdmin = false, checkRec = false;
+
+        if (receptionist.rcpArr.size() < 1){
+            System.out.println("There's no Receptionist currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         receptionist.viewAll();
         do {
             try {
@@ -583,6 +612,14 @@ public class Main {
     }
 
     static void deleteReceptionist() {
+
+        if (receptionist.rcpArr.size() < 1){
+            System.out.println("There's no Receptionist currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         int index = 0;
         String badInput = null;
         receptionist.viewAll();
@@ -618,6 +655,13 @@ public class Main {
             input.nextLine();
             switch (choose) {
                 case 1:
+                    if (receptionist.rcpArr.size() < 1){
+                        System.out.println("There are no Receptionists currently");
+                        System.out.print("Press Enter to Continue.....");
+                        input.nextLine();
+                        System.out.println();
+                        continue;
+                    }
                     receptionist.viewAll();
                     break;
                 case 2:
@@ -686,6 +730,13 @@ public class Main {
     }
 
     static void updateRoom() {
+        if (room.listRoom.size() < 1){
+            System.out.println("There are no Rooms currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         String roomCategory = null, badInput = null;
         int roomNumber = 0, roomPrice = 0, index = 0;
         room.viewRoom();
@@ -748,6 +799,13 @@ public class Main {
     }
 
     static void deleteRoom() {
+        if (room.listRoom.size() < 1){
+            System.out.println("There are no Rooms currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         int index = 0;
         String badInput = null;
         room.viewRoom();
@@ -783,6 +841,13 @@ public class Main {
             input.nextLine();
             switch (choose) {
                 case 1:
+                    if (room.listRoom.size() < 1){
+                        System.out.println("There are no Rooms currently");
+                        System.out.print("Press Enter to Continue.....");
+                        input.nextLine();
+                        System.out.println();
+                        continue;
+                    }
                     room.viewRoom();
                     break;
                 case 2:
@@ -804,6 +869,13 @@ public class Main {
 
 
     static void bookingMenu() {
+        if (room.listRoomAvailable.size() < 1){
+            System.out.println("There are no available rooms currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         room.viewAvailableRoom();
 
         String name = null, address = null, phone = null, gender = null;
@@ -964,14 +1036,21 @@ public class Main {
         long count = ChronoUnit.DAYS.between(date1, date2);
         int total = (int) count * room.getPriceByIndex(roomIndex);
         payment.makePayment(payMethod, total, book.getStartDateByIndex(), true);
-        payment.viewPayment();
+        payment.notaPayment();
     }
 
     static void removeBooking() {
         String badInput = null;
         int guestOut = 0;
+        if (book.sizeList() < 1){
+            System.out.println("There's no booking currently");
+            System.out.print("Press Enter to Continue.....");
+            input.nextLine();
+            System.out.println();
+            return;
+        }
         guest.viewAll();
-        System.out.println("==============");
+        System.out.println("===========================================");
         System.out.println("Choose number of room you wish to check out");
         do {
             try {
@@ -1079,6 +1158,13 @@ public class Main {
                     removeBooking();
                     break;
                 case 3:
+                    if (room.listRoom.size() < 1){
+                        System.out.println("There are no Rooms currently");
+                        System.out.print("Press Enter to Continue.....");
+                        input.nextLine();
+                        System.out.println();
+                        continue;
+                    }
                     room.viewRoom();
                     break;
                 case 4:
@@ -1104,7 +1190,7 @@ public class Main {
                         if (book.bookList.size() < 1) {
                             System.out.println();
                             System.out.println("There's no booking currently");
-                            System.out.println("Press Enter to continue.....");
+                            System.out.print("Press Enter to continue.....");
                             input.nextLine();
                             System.out.println();
                             continue;
@@ -1121,6 +1207,14 @@ public class Main {
                         }
                         book.bookHistory();
                     } else if (chooseBook == 3) {
+
+                        if (book.sizeList() < 1){
+                            System.out.println("There's no booking currently");
+                            System.out.print("Press Enter to Continue.....");
+                            input.nextLine();
+                            System.out.println();
+                            continue;
+                        }
                         book.viewBook();
                         String type = null, start = null, end = null, desc = null;
                         int chooseBookUpdate = 0;
@@ -1185,6 +1279,13 @@ public class Main {
                     }
                     break;
                 case 5:
+                    if (guest.guestsArr.size() < 1){
+                        System.out.println("There are no Guests currently");
+                        System.out.print("Press Enter to Continue.....");
+                        input.nextLine();
+                        System.out.println();
+                        continue;
+                    }
                     int updt = 0;
                     guest.viewAll();
                     System.out.println();
@@ -1256,6 +1357,7 @@ public class Main {
                         } while (!Helper.checkPhoneNumber(phone));
                         room.viewAvailableRoom();
                         do {
+                            if (room.viewAvailableRoom() == -1) break;
                             try {
                                 System.out.print("Choose Room number : ");
                                 roomIndex = input.nextInt();
@@ -1306,10 +1408,17 @@ public class Main {
                     break;
 
                 case 6:
+                    if (payment.paymentList.size() < 1){
+                        System.out.println("There are no Payments History currently");
+                        System.out.print("Press Enter to Continue.....");
+                        input.nextLine();
+                        System.out.println();
+                        continue;
+                    }
                     payment.viewPayment();
                     break;
                 default:
-                    System.out.println("Pleas input number between 1 - 6");
+                    System.out.println("Please input a number between 1 - 6");
                     break;
             }
         } while (choose != 7);
@@ -1356,11 +1465,10 @@ public class Main {
 
         setTimeout(() -> {
             for (int i = 0; i < 50; ++i) System.out.println();
-        }, 4200);
+        }, 2800);
 
-
-        setTimeout(() -> System.out.println("===================================== Login ==============================================="), 4400);
-        setTimeout(() -> System.out.print("Username: "), 4500);
+        setTimeout(() -> System.out.println("===================================== Login ==============================================="), 3100);
+        setTimeout(() -> System.out.print("Username: "), 3200);
         String username = input.nextLine();
         System.out.print("Password: ");
         String password = input.nextLine();
@@ -1370,7 +1478,7 @@ public class Main {
         } else if (res == 2) {
             homeRec();
         } else {
-            System.out.println("wrong username or password");
+            System.out.println("Wrong username or password");
         }
 
     }
@@ -1380,7 +1488,7 @@ public class Main {
         admin.initAdmin();
         employee.init();
         receptionist.init();
-        guest.init();
+//        guest.init();
         formLogin();
 
     }

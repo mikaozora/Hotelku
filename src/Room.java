@@ -76,7 +76,12 @@ public class Room {
 
     }
 
-    public void viewAvailableRoom(){
+    public int viewAvailableRoom(){
+
+        if (listRoomAvailable.size() < 1){
+            System.out.println("There are no available rooms currently");
+            return -1;
+        }
 
         System.out.printf("==============================================================%n");
         System.out.printf("|                     AVAILABLE ROOM LISTS                   |%n");
@@ -95,6 +100,8 @@ public class Room {
         });
 
         System.out.printf("==============================================================%n");
+
+        return 0;
 
     }
 
