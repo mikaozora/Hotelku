@@ -11,7 +11,7 @@ public class Booking {
     String bookDesc;
     String guestId;
 
-    static Guest idGuest = new Guest(null,null,null,0,0,null);
+    static Guest idGuest = new Guest(null, null, null, 0, 0, null);
 
     public String getBookId() {
         return bookId;
@@ -29,7 +29,7 @@ public class Booking {
         this.bookType = bookType;
     }
 
-    public String  getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
@@ -62,8 +62,8 @@ public class Booking {
         this.guestId = guestId;
     }
 
-    Booking(String bookType, String startDate, String endDate, String bookDesc, String guestId){
-        this.bookId = ""+(long)(Math.random() * 20000000000L);
+    Booking(String bookType, String startDate, String endDate, String bookDesc, String guestId) {
+        this.bookId = "" + (long) (Math.random() * 20000000000L);
         this.setBookDesc(bookDesc);
         this.setGuestId(guestId);
         this.setStartDate(startDate);
@@ -75,26 +75,25 @@ public class Booking {
     List<Booking> bookHistory = new ArrayList<>();
 
 
-
-    void checkIn(String bookType, String startDate, String endDate, String bookDesc, String guestId){
+    void checkIn(String bookType, String startDate, String endDate, String bookDesc, String guestId) {
         Booking temp = new Booking(bookType, startDate, endDate, bookDesc, guestId);
         bookList.add(temp);
         bookHistory.add(temp);
     }
 
-    public void viewBook(){
+    public void viewBook() {
 
         System.out.printf("==================================================================================================================%n");
         System.out.printf("|                                                  BOOKING LISTS                                                 |%n");
         System.out.printf("==================================================================================================================%n%n");
         System.out.printf("==================================================================================================================%n");
-        System.out.printf("| %-2s | %-15s | %-14s | %-14s | %-12s | %-19s | %-15s  |%n","NO","ID","TYPE","START DATE","END DATE","DESCRIPTION","ID GUEST");
+        System.out.printf("| %-2s | %-15s | %-14s | %-14s | %-12s | %-19s | %-15s  |%n", "NO", "ID", "TYPE", "START DATE", "END DATE", "DESCRIPTION", "ID GUEST");
         System.out.printf("==================================================================================================================%n");
 
 
         AtomicInteger i = new AtomicInteger(1);
         bookList.forEach(cetak -> {
-            System.out.printf("| %-2s | %-15s | %-14s | %-14s | %-12s | %-19s | %-15s  |%n",i,cetak.getBookId(),cetak.getBookType(),cetak.getStartDate(),cetak.getEndDate(),cetak.getBookDesc(),cetak.getGuestId());
+            System.out.printf("| %-2s | %-15s | %-14s | %-14s | %-12s | %-19s | %-15s  |%n", i, cetak.getBookId(), cetak.getBookType(), cetak.getStartDate(), cetak.getEndDate(), cetak.getBookDesc(), cetak.getGuestId());
             i.getAndIncrement();
         });
 
@@ -102,48 +101,43 @@ public class Booking {
 
     }
 
-    void checkOut(int num){
-        bookList.remove(num-1);
+    void checkOut(int num) {
+        bookList.remove(num - 1);
         System.out.println("Booking has been removed");
     }
 
-    void bookHistory(){
-        AtomicInteger i = new AtomicInteger(1);
-        bookHistory.forEach(x -> {
-            System.out.print(i + ". ");
-            System.out.println("Booking Start Date : " + x.getStartDate());
-            System.out.println("   Booking End Date : " + x.getEndDate());
-            System.out.println("   Booking Id : " + x.getBookId());
-            System.out.println("   Booking Type : " + x.getBookType());
-            System.out.println("   Booking Description : " + x.getBookDesc());
-            System.out.println("   Guest Id : " + x.getGuestId());
-            System.out.println();
+    void bookHistory() {
 
+        System.out.printf("===============================================================================================================================================%n");
+        System.out.printf("|                                                         BOOKING HISTORY                                                                     |%n");
+        System.out.printf("===============================================================================================================================================%n%n");
+        System.out.printf("===============================================================================================================================================%n");
+        System.out.printf("| %-2s | %-14s | %-10s | %-10s | %-10s | %-16S | %-14s | %-16s | %-14s | %-6s |%n", "NO", "BOOKING ID", "START DATE", "END DATE", "TYPE", "DESCRIPTION", "GUEST ID", "NAME", "PHONE", "ROOM");
+        System.out.printf("===============================================================================================================================================%n");
+
+
+        AtomicInteger i = new AtomicInteger(1);
+        bookHistory.forEach(cetak -> {
+            System.out.printf("| %-2s | %-14s | %-10s | %-10s | %-10s | %-16S | %-14s |", i, cetak.getBookId(), cetak.getStartDate(), cetak.getEndDate(), cetak.getBookType(), cetak.getBookDesc(), cetak.getGuestId());
             Main.guest.guestHistory.forEach(y -> {
 
-                if (y.getGuestId().equals(x.getGuestId())){
-                    System.out.println("   Id: " + y.getGuestId());
-                    System.out.println("   Name: " + y.getGuestName());
-                    System.out.println("   Address: " + y.getGuestAddress());
-                    System.out.println("   Phone Number: " + y.getGuestPhone());
-                    System.out.println("   Room Number: " + y.getGuestRoom());
-                    System.out.println("   Age: " + y.getGuestAge());
-                    System.out.println("   Gender: " + y.getGuestGender());
-                    System.out.println();
+                if (y.getGuestId().equals(cetak.getGuestId())) {
+                    System.out.printf(" %-16s | %-14s | %-6s |%n", y.getGuestName(), y.getGuestPhone(), y.getGuestRoom());
                 }
             });
             i.getAndIncrement();
         });
+        System.out.printf("===============================================================================================================================================%n");
     }
 
-    void updateBook(int num, String bookType, String startDate, String endDate, String bookDesc){
-        bookList.get(num-1).bookType = bookType;
-        bookList.get(num-1).bookDesc = bookDesc;
-        bookList.get(num-1).startDate = startDate;
-        bookList.get(num-1).endDate = endDate;
+    void updateBook(int num, String bookType, String startDate, String endDate, String bookDesc) {
+        bookList.get(num - 1).bookType = bookType;
+        bookList.get(num - 1).bookDesc = bookDesc;
+        bookList.get(num - 1).startDate = startDate;
+        bookList.get(num - 1).endDate = endDate;
 
         bookHistory.forEach(x -> {
-            if (x.getGuestId().equals(bookList.get(num-1).getGuestId())){
+            if (x.getGuestId().equals(bookList.get(num - 1).getGuestId())) {
                 x.setBookType(bookType);
                 x.setBookDesc(bookDesc);
                 x.setStartDate(startDate);
@@ -152,21 +146,23 @@ public class Booking {
         });
     }
 
-    public int sizeList(){
+    public int sizeList() {
         return bookList.size();
     }
-    public String testSize(){
+
+    public String testSize() {
         System.out.println(bookList.size());
-        int index = bookList.size()-1;
+        int index = bookList.size() - 1;
         return bookList.get(index).getStartDate();
     }
 
-    public String getStartDateByIndex(){
-        int index = bookList.size()-1;
+    public String getStartDateByIndex() {
+        int index = bookList.size() - 1;
         return bookList.get(index).getStartDate();
     }
-    public String getEndDateByIndex(){
-        int index = bookList.size()-1;
+
+    public String getEndDateByIndex() {
+        int index = bookList.size() - 1;
         return bookList.get(index).getEndDate();
     }
 }
