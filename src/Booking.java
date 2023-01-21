@@ -99,7 +99,6 @@ public class Booking {
 
         System.out.printf("==================================================================================================================%n");
 
-
     }
 
     void checkOut(int num){
@@ -148,5 +147,23 @@ public class Booking {
         bookHistory.get(num-1).guestId = guestId;
         bookHistory.get(num-1).startDate = startDate;
         bookHistory.get(num-1).endDate = endDate;
+    }
+
+    public int sizeList(){
+        return bookList.size();
+    }
+    public String testSize(){
+        System.out.println(bookList.size());
+        int index = bookList.size()-1;
+        return bookList.get(index).getStartDate();
+    }
+
+    public String getStartDateByIndex(){
+        int index = bookList.size()-1;
+        return bookList.get(index).getStartDate();
+    }
+    public String getEndDateByIndex(){
+        int index = bookList.size()-1;
+        return bookList.get(index).getEndDate();
     }
 }
