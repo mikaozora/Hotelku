@@ -41,7 +41,7 @@ public class Room {
         this.status = status;
     }
 
-    private static List<Room> listRoom = new ArrayList<>();
+    static List<Room> listRoom = new ArrayList<>();
 
     static List<Room> listRoomAvailable = new ArrayList<>();
 
