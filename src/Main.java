@@ -506,7 +506,7 @@ public class Main {
             }
         } while (badInput != null || age <= 0);
 
-        receptionist.addReceptionist(username, password, name, phoneNum, address, age);
+        receptionist.addReceptionist( name,username, password, address,phoneNum, age);
     }
 
     static void updateReceptionist() {
@@ -1200,7 +1200,7 @@ public class Main {
                         if (book.bookHistory.size() < 1) {
                             System.out.println();
                             System.out.println("There's no booking history");
-                            System.out.println("Press Enter to continue.....");
+                            System.out.print("Press Enter to continue.....");
                             input.nextLine();
                             System.out.println();
                             continue;
@@ -1417,8 +1417,10 @@ public class Main {
                     }
                     payment.viewPayment();
                     break;
+                case 7:
+                    break;
                 default:
-                    System.out.println("Please input a number between 1 - 6");
+                    System.out.println("Please input a number between 1 - 7");
                     break;
             }
         } while (choose != 7);
@@ -1451,6 +1453,9 @@ public class Main {
 
     static void font(){
 
+        setTimeout(() -> System.out.println(), 900);
+        setTimeout(() -> System.out.println(), 900);
+
         setTimeout(() -> System.out.println(" ██╗  ██╗ ██████╗ ████████╗███████╗██╗     ██╗  ██╗██╗   ██╗"), 1000);
         setTimeout(() -> System.out.println(" ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║     ██║ ██╔╝██║   ██║"), 1300);
         setTimeout(() -> System.out.println(" ███████║██║   ██║   ██║   █████╗  ██║     █████╔╝ ██║   ██║"), 1500);
@@ -1464,10 +1469,10 @@ public class Main {
         font();
 
         setTimeout(() -> {
-            for (int i = 0; i < 50; ++i) System.out.println();
+            for (int i = 0; i < 1; ++i) System.out.println();
         }, 2800);
 
-        setTimeout(() -> System.out.println("===================================== Login ==============================================="), 3100);
+        setTimeout(() -> System.out.println("========================= Login ============================"), 3100);
         setTimeout(() -> System.out.print("Username: "), 3200);
         String username = input.nextLine();
         System.out.print("Password: ");
@@ -1488,7 +1493,6 @@ public class Main {
         admin.initAdmin();
         employee.init();
         receptionist.init();
-//        guest.init();
         formLogin();
 
     }
