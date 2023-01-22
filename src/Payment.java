@@ -103,7 +103,7 @@ public class Payment {
 
         AtomicInteger i = new AtomicInteger(1);
         paymentList.forEach(cetak -> {
-            System.out.printf("| %-2s | %-14s | %-14s | %-20s | %-20s | %-14s |%n",i,cetak.getPaymentId(),cetak.getPaymentDate(),cetak.getPaymentMethod(),cetak.getTotalPayment(),cetak.getPaymentStat());
+            System.out.printf("| %-2s | %-14s | %-14s | %-20s | %-20s | %-14s |%n",i,cetak.getPaymentId(),cetak.getPaymentDate(),cetak.getPaymentMethod(),cetak.getTotalPayment(),cetak.isPaymentStat());
             i.getAndIncrement();
         });
 

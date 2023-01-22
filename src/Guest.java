@@ -133,13 +133,6 @@ public class Guest {
     }
 
     public String indexGuest(){
-//        System.out.println(guestId);
-//        for(Guest guest : guestsArr){
-//            if(guest.getGuestId().equals(guestId)){
-//                return guestsArr.indexOf(guest);
-//            }
-//        }
-//        return -1;
         int index = guestsArr.size()-1;
         return guestsArr.get(index).getGuestId();
     }
@@ -152,6 +145,5 @@ public class Guest {
     public void init() {
         addGuest("abdhy","lampung", "4098408",22,23,"Laki");
     }
-
 
 }

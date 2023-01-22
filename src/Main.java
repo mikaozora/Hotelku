@@ -174,6 +174,7 @@ public class Main {
             admin.deleteAdmin(index);
             System.out.println("Successfully delete admin");
             indexLogin = -1;
+            cekk = 0;
             formLogin();
 
         } else {
@@ -183,7 +184,8 @@ public class Main {
     }
 
     static void adminMenu() {
-        int choose;
+        int choose = 0;
+        String badInput = null;
 
         do {
             System.out.println("1. View admin");
@@ -191,9 +193,17 @@ public class Main {
             System.out.println("3. Change data");
             System.out.println("4. Delete admin");
             System.out.println("5. Exit");
-            System.out.print(">> ");
-            choose = input.nextInt();
-            input.nextLine();
+            do {
+                try {
+                    System.out.print(">> ");
+                    choose = input.nextInt();
+                    input.nextLine();
+                    badInput = null;
+                } catch (InputMismatchException e) {
+                    badInput = input.next();
+                    System.out.println("Please input a number");
+                }
+            } while (badInput != null);
             switch (choose) {
                 case 1:
                     admin.viewAll();
@@ -389,8 +399,8 @@ public class Main {
     }
 
     static void employeeMenu() {
-        String name, phoneNum, address, role;
-        int choose, index;
+        String badInput = null;
+        int choose = 0;
         do {
 
             System.out.println("1. View employee");
@@ -398,9 +408,17 @@ public class Main {
             System.out.println("3. Update employee");
             System.out.println("4. Delete employee");
             System.out.println("5. Exit");
-            System.out.print(">> ");
-            choose = input.nextInt();
-            input.nextLine();
+            do {
+                try {
+                    System.out.print(">> ");
+                    choose = input.nextInt();
+                    input.nextLine();
+                    badInput = null;
+                } catch (InputMismatchException e) {
+                    badInput = input.next();
+                    System.out.println("Please input a number");
+                }
+            } while (badInput != null);
             switch (choose) {
                 case 1:
                     if (employee.empArr.size() < 1){
@@ -506,7 +524,7 @@ public class Main {
             }
         } while (badInput != null || age <= 0);
 
-        receptionist.addReceptionist(username, password, name, phoneNum, address, age);
+        receptionist.addReceptionist( name,username, password, address,phoneNum, age);
     }
 
     static void updateReceptionist() {
@@ -642,7 +660,8 @@ public class Main {
     }
 
     static void receptionistMenu() {
-        int choose;
+        int choose = 0;
+        String badInput = null;
 
         do {
             System.out.println("1. View Receptionist");
@@ -650,9 +669,17 @@ public class Main {
             System.out.println("3. Update Receptionist");
             System.out.println("4. Delete Receptionist");
             System.out.println("5. Exit");
-            System.out.print(">> ");
-            choose = input.nextInt();
-            input.nextLine();
+            do {
+                try {
+                    System.out.print(">> ");
+                    choose = input.nextInt();
+                    input.nextLine();
+                    badInput = null;
+                } catch (InputMismatchException e) {
+                    badInput = input.next();
+                    System.out.println("Please input a number");
+                }
+            } while (badInput != null);
             switch (choose) {
                 case 1:
                     if (receptionist.rcpArr.size() < 1){
@@ -828,7 +855,8 @@ public class Main {
     }
 
     static void roomMenu() {
-        int choose;
+        int choose = 0;
+        String badInput = null;
 
         do {
             System.out.println("1. View room");
@@ -836,9 +864,17 @@ public class Main {
             System.out.println("3. Update room");
             System.out.println("4. Delete room");
             System.out.println("5. Exit");
-            System.out.print(">> ");
-            choose = input.nextInt();
-            input.nextLine();
+            do {
+                try {
+                    System.out.print(">> ");
+                    choose = input.nextInt();
+                    input.nextLine();
+                    badInput = null;
+                } catch (InputMismatchException e) {
+                    badInput = input.next();
+                    System.out.println("Please input a number");
+                }
+            } while (badInput != null);
             switch (choose) {
                 case 1:
                     if (room.listRoom.size() < 1){
@@ -973,32 +1009,41 @@ public class Main {
                 System.out.println(e);
             }
         } while (type.length() > 100);
-        do {
-            try {
-                System.out.print("Start Date (yyyy-mm-dd) : ");
-                start = input.nextLine();
-                if (!Helper.checkDate(start)) {
-                    System.out.println("Please input a valid date");
-                }
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        } while (!Helper.checkDate(start));
+//        do {
+//            try {
+//                System.out.print("Start Date (yyyy-mm-dd) : ");
+//                start = input.nextLine();
+//                if (!Helper.checkDate(start)) {
+//                    System.out.println("Please input a valid date");
+//                }
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        } while (!Helper.checkDate(start));
+        start = String.valueOf(LocalDate.now());
+        System.out.println(start);
+        long count = 0;
         do {
             try {
                 System.out.print("End Date (yyyy-mm-dd) : ");
                 end = input.nextLine();
-                if (!Helper.checkDate(end)) {
+                LocalDate date1 = LocalDate.parse(start, DateTimeFormatter.ISO_DATE);
+                LocalDate date2 = LocalDate.parse(end, DateTimeFormatter.ISO_DATE);
+                count = ChronoUnit.DAYS.between(date1, date2);
+                if (!Helper.checkDate(end) || count < 1) {
                     System.out.println("Please input a valid date");
                 }
             } catch (Exception e) {
                 System.out.println(e);
             }
-        } while (!Helper.checkDate(end));
+        } while (!Helper.checkDate(end) || count < 1);
         do {
             try {
                 System.out.print("Booking Description : ");
                 desc = input.nextLine();
+                if (desc.length() < 10){
+                    System.out.println("Book description must be more then 10 character");
+                }
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -1031,9 +1076,6 @@ public class Main {
             }
         } while (payMethod.length() < 2);
 
-        LocalDate date1 = LocalDate.parse(book.getStartDateByIndex(), DateTimeFormatter.ISO_DATE);
-        LocalDate date2 = LocalDate.parse(book.getEndDateByIndex(), DateTimeFormatter.ISO_DATE);
-        long count = ChronoUnit.DAYS.between(date1, date2);
         int total = (int) count * room.getPriceByIndex(roomIndex);
         payment.makePayment(payMethod, total, book.getStartDateByIndex(), true);
         payment.notaPayment();
@@ -1112,6 +1154,7 @@ public class Main {
                         adminMenu();
                         break;
                     case 5:
+                        cekk = 0;
                         formLogin();
                         break;
                     default:
@@ -1200,7 +1243,7 @@ public class Main {
                         if (book.bookHistory.size() < 1) {
                             System.out.println();
                             System.out.println("There's no booking history");
-                            System.out.println("Press Enter to continue.....");
+                            System.out.print("Press Enter to continue.....");
                             input.nextLine();
                             System.out.println();
                             continue;
@@ -1417,8 +1460,11 @@ public class Main {
                     }
                     payment.viewPayment();
                     break;
+                case 7:
+                    cekk = 0;
+                    break;
                 default:
-                    System.out.println("Please input a number between 1 - 6");
+                    System.out.println("Please input a number between 1 - 7");
                     break;
             }
         } while (choose != 7);
@@ -1451,44 +1497,64 @@ public class Main {
 
     static void font(){
 
-        setTimeout(() -> System.out.println(" ██╗  ██╗ ██████╗ ████████╗███████╗██╗     ██╗  ██╗██╗   ██╗"), 1000);
-        setTimeout(() -> System.out.println(" ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║     ██║ ██╔╝██║   ██║"), 1300);
-        setTimeout(() -> System.out.println(" ███████║██║   ██║   ██║   █████╗  ██║     █████╔╝ ██║   ██║"), 1500);
-        setTimeout(() -> System.out.println(" ██╔══██║██║   ██║   ██║   ██╔══╝  ██║     ██╔═██╗ ██║   ██║"), 1700);
-        setTimeout(() -> System.out.println(" ██║  ██║╚██████╔╝   ██║   ███████╗███████╗██║  ██╗╚██████╔╝"), 1900);
-        setTimeout(() -> System.out.println(" ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝"), 2100);
+        setTimeout(() -> System.out.println(), 900);
+        setTimeout(() -> System.out.println(), 900);
+
+        setTimeout(() -> System.out.println(" ██╗  ██╗ ██████╗ ████████╗███████╗██╗     ██╗  ██╗██╗   ██╗"), 1200);
+        setTimeout(() -> System.out.println(" ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║     ██║ ██╔╝██║   ██║"), 1400);
+        setTimeout(() -> System.out.println(" ███████║██║   ██║   ██║   █████╗  ██║     █████╔╝ ██║   ██║"), 1600);
+        setTimeout(() -> System.out.println(" ██╔══██║██║   ██║   ██║   ██╔══╝  ██║     ██╔═██╗ ██║   ██║"), 1800);
+        setTimeout(() -> System.out.println(" ██║  ██║╚██████╔╝   ██║   ███████╗███████╗██║  ██╗╚██████╔╝"), 2000);
+        setTimeout(() -> System.out.println(" ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝"), 2200);
 
     }
+
+    public static int cekk = 0;
 
     static void formLogin() {
         font();
 
         setTimeout(() -> {
-            for (int i = 0; i < 50; ++i) System.out.println();
-        }, 2800);
+            for (int i = 0; i < 1; ++i) System.out.println();
+        }, 2300);
 
-        setTimeout(() -> System.out.println("===================================== Login ==============================================="), 3100);
-        setTimeout(() -> System.out.print("Username: "), 3200);
-        String username = input.nextLine();
-        System.out.print("Password: ");
-        String password = input.nextLine();
-        int res = checkLogin(username, password);
-        if (res == 1) {
-            homeAdmin();
-        } else if (res == 2) {
-            homeRec();
-        } else {
-            System.out.println("Wrong username or password");
-        }
+        setTimeout(() -> System.out.println("========================= Login ============================"), 2450);
+        int res = 0;
+        do{
+            try{
+                if (cekk == 0){
+                    setTimeout(() -> System.out.print("Username: "), 2510);
+                    cekk = 1;
+                }else {
+                    System.out.print("Username: ");
+                }
+
+                String username = input.nextLine();
+                System.out.print("Password: ");
+                String password = input.nextLine();
+                res = checkLogin(username, password);
+                if (res == 1) {
+                    homeAdmin();
+                } else if (res == 2) {
+                    homeRec();
+                } else {
+                    System.out.println();
+                    System.out.println("Wrong username or password");
+                    System.out.println();
+                }
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }while(res == 0);
+
 
     }
 
     public static void main(String[] args) {
         room.roomInit();
         admin.initAdmin();
-        employee.init();
+//        employee.init();
         receptionist.init();
-//        guest.init();
         formLogin();
 
     }
