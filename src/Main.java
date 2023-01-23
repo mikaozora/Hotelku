@@ -959,6 +959,7 @@ public class Main {
             try {
                 System.out.print("Choose Room number : ");
                 roomIndex = input.nextInt();
+                input.nextLine();
                 if (!Helper.checkChoose(roomIndex, room.listRoomAvailable.size())) {
                     System.out.printf("Please input number between %d to %d\n", 1, room.listRoomAvailable.size());
                 } else {
@@ -1064,7 +1065,6 @@ public class Main {
             }
         });
 
-        room.listRoomAvailable.remove(getIndex[0]);
 
         System.out.println("====Add Payment======");
         do {
@@ -1075,10 +1075,10 @@ public class Main {
                 System.out.println(e);
             }
         } while (payMethod.length() < 2);
-
         int total = (int) count * room.getPriceByIndex(roomIndex);
         payment.makePayment(payMethod, total, book.getStartDateByIndex(), true);
         payment.notaPayment();
+        room.listRoomAvailable.remove(getIndex[0]);
     }
 
     static void removeBooking() {
@@ -1349,7 +1349,7 @@ public class Main {
 
                     if (updt == 1) {
                         String name = null, address = null, phone = null, gender = null;
-                        int roomNumber = 0, age = 0, inp = 0, roomIndex = 0;
+                        int roomNumber = 0, age = 0, inp = 0, roomIndex = 0, lastRoomNum;
                         System.out.println("====Update Guest======");
                         do {
                             try {
@@ -1398,9 +1398,12 @@ public class Main {
                                 System.out.println(e);
                             }
                         } while (!Helper.checkPhoneNumber(phone));
-                        room.viewAvailableRoom();
                         do {
-                            if (room.viewAvailableRoom() == -1) break;
+                            if (room.listRoomAvailable.size() < 1){
+                                System.out.println("There are no available rooms currently!");
+                                break;
+                            }
+                            room.viewAvailableRoom();
                             try {
                                 System.out.print("Choose Room number : ");
                                 roomIndex = input.nextInt();
@@ -1443,6 +1446,21 @@ public class Main {
                             }
                         } while (!Helper.checkGender(gender));
                         guest.updateGuest(inp, name, address, phone, roomNumber, age, gender);
+                        int finalRoomNum = roomNumber;
+                        room.listRoom.forEach(x -> {
+                            if (x.getRoomNumber() == finalRoomNum){
+                                x.setStatus(false);
+                                room.listRoomAvailable.add(x);
+                            }
+                        });
+                        int finalIndexGuestnya = inp;
+                        final int[] getIndexRoomNum = new int[1];
+                        room.listRoomAvailable.forEach(y -> {
+                            if (y.getRoomNumber() == guest.guestsArr.get(finalIndexGuestnya-1).getGuestRoom()){
+                                getIndexRoomNum[0] = room.listRoomAvailable.indexOf(y);
+                            }
+                        });
+                        room.listRoomAvailable.remove(getIndexRoomNum[0]);
                         System.out.println();
 
                     } else {
@@ -1523,7 +1541,7 @@ public class Main {
         do{
             try{
                 if (cekk == 0){
-                    setTimeout(() -> System.out.print("Username: "), 2510);
+                    setTimeout(() -> System.out.print("Username: "), 2590);
                     cekk = 1;
                 }else {
                     System.out.print("Username: ");
